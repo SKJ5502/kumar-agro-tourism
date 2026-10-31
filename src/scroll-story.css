@@ -126,3 +126,27 @@
  .world-portal { transition:none; }
  .world-portal-aura { filter:none; }
 }
+
+
+/* The rider is a cut-out of the actual brochure photograph, not an old 3D island. */
+.flight-layer{position:fixed;inset:0;z-index:19;pointer-events:none;overflow:visible;--flight-x:67vw;--flight-y:-8vh;--flight-scale:1;--flight-opacity:1;--flight-tilt:0deg}
+.flight-rider{position:absolute;top:0;left:0;width:clamp(270px,26vw,370px);opacity:var(--flight-opacity);transform:translate3d(var(--flight-x),var(--flight-y),0) translateX(-50%) scale(var(--flight-scale)) rotateY(var(--flight-tilt));transform-origin:50% 8%;transform-style:preserve-3d;filter:drop-shadow(1px 18px 16px rgba(19,44,31,.24));will-change:transform,opacity;transition:transform 145ms cubic-bezier(.2,.65,.25,1),opacity 350ms ease}
+.flight-rider-svg{display:block;position:relative;width:100%;height:auto;overflow:visible;z-index:2}
+.flight-cable{position:absolute;left:46%;top:4.5%;width:max(140vw,1850px);height:1.5px;background:linear-gradient(90deg,transparent,rgba(228,225,208,.42) 8%,rgba(237,229,207,.85) 38%,rgba(245,241,223,.89) 55%,rgba(198,186,164,.56) 85%,transparent);transform:translate(-50%,-50%) rotate(27deg);transform-origin:center;box-shadow:0 1px 0 rgba(29,44,39,.3),0 -1px 1px rgba(255,255,255,.18);z-index:1}
+.flight-cable-two{top:4.1%;transform:translate(-50%,-50%) rotate(27deg) translateY(-7px);opacity:.43}
+.flight-rider-caption{position:absolute;z-index:3;bottom:9%;left:-22%;padding:9px 13px;color:#264a38;background:rgba(252,248,229,.92);border:1px solid rgba(79,101,73,.15);border-radius:2px;box-shadow:0 7px 23px rgba(12,42,27,.11);font-size:8px;font-weight:700;line-height:1.6;letter-spacing:.15em;white-space:nowrap;transform:rotate(-5deg)}
+.flight-rider-caption span{margin-left:8px;color:#ad8c5d}
+.flight-compact .flight-rider-caption,.flight-compact .flight-cable{opacity:0}
+.flight-compact .flight-rider{filter:drop-shadow(0 11px 20px rgba(16,56,33,.11))}
+.immersive-journey .journey-inner-right{justify-content:flex-start}
+.immersive-journey .journey-panel-adventure .journey-copy{margin-right:0;width:43%}
+.immersive-journey .journey-panel-forest .journey-copy,.immersive-journey .journey-panel-water .journey-copy{width:43%}
+.immersive-journey .journey-panel-water .journey-aside-photo{right:3%;bottom:-2%;width:128px;transform:rotate(7deg)}
+.immersive-journey .journey-side-caption{left:4.3%;right:auto}
+.immersive-journey .journey-panel-adventure::before{opacity:.4}
+.hero .hero-copy{width:min(585px,53%)}
+.hero .hero-shade{background:linear-gradient(90deg,rgba(8,36,27,.98) 0%,rgba(10,39,30,.95) 35%,rgba(10,43,32,.59) 58%,rgba(9,36,26,.26) 100%),linear-gradient(0deg,rgba(7,32,23,.48),transparent 46%)}
+@media(max-width:1150px){.flight-rider{width:clamp(230px,29vw,330px)}.hero .hero-copy{width:57%}}
+@media(max-width:900px){.flight-rider{width:clamp(230px,31vw,295px)}.flight-rider-caption{left:-7%;font-size:7px}.hero .hero-copy{width:69%}.immersive-journey .journey-panel-adventure .journey-copy,.immersive-journey .journey-panel-water .journey-copy,.immersive-journey .journey-panel-forest .journey-copy{width:49%}}
+@media(max-width:650px){.flight-rider{width:clamp(195px,57vw,245px);filter:drop-shadow(0 7px 10px rgba(11,36,24,.16))}.flight-cable{width:190vw;opacity:.35}.flight-rider-caption{display:none}.hero .hero-copy{width:100%}.hero .hero-copy>p{width:64%}.immersive-journey .journey-panel{align-items:flex-start}.immersive-journey .journey-panel-adventure .journey-copy,.immersive-journey .journey-panel-water .journey-copy,.immersive-journey .journey-panel-forest .journey-copy{width:min(100%,390px);padding-right:42px}.immersive-journey .journey-copy p{max-width:280px}.immersive-journey .journey-panel-water .journey-aside-photo{display:none}.immersive-journey .journey-panel-adventure .journey-copy{margin-left:0}}
+@media(prefers-reduced-motion:reduce){.flight-rider{transition:none}.flight-cable{animation:none}}

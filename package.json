@@ -3,20 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Premium 3D landing page for Kumar Agro Tourism, Dondaicha.",
+  "description": "Kumar Agro Tourism premium scroll-driven website with a realistic photo zipline journey.",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@react-three/drei": "^10.6.0",
-    "@react-three/fiber": "^9.3.0",
     "framer-motion": "^12.23.0",
     "lucide-react": "^0.468.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "three": "^0.178.0"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.0",

@@ -1,98 +1,75 @@
-import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, Leaf, Mountain, Waves } from 'lucide-react';
+import React,{useEffect,useRef} from 'react';
+import {motion,useReducedMotion} from 'framer-motion';
+import {ArrowDown,ArrowUpRight,Leaf,Mountain,Waves} from 'lucide-react';
 
-const OrchardScene = lazy(() => import('./OrchardScene.jsx'));
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+// This photographic silhouette is traced from the resort's real zipline brochure photo.
+const outline='M381 503 L380 515 L362 520 L357 534 L359 525 L366 520 L364 551 L361 555 L367 552 L374 558 L393 556 L393 572 L379 588 L376 618 L385 649 L389 652 L387 661 L405 688 L406 705 L412 713 L409 724 L412 757 L423 762 L440 783 L453 789 L474 791 L485 786 L498 792 L539 796 L541 801 L524 856 L531 878 L544 874 L537 895 L537 906 L563 921 L563 911 L567 920 L564 923 L583 933 L628 934 L632 930 L633 918 L620 906 L620 900 L615 895 L632 891 L632 867 L621 870 L617 864 L613 866 L610 863 L612 860 L603 854 L606 851 L601 848 L621 816 L633 786 L623 776 L607 769 L605 749 L573 718 L556 714 L550 699 L543 695 L532 695 L524 689 L523 684 L515 685 L511 681 L511 659 L506 641 L513 636 L535 635 L540 630 L541 622 L540 612 L528 589 L528 557 L505 537 L505 524 L496 519 L504 509 L495 519 L476 519 L476 534 L467 535 L466 530 L459 528 L453 510 L441 495 L416 493 L393 509 L382 507Z M601 858 L609 865 L605 871 L600 871 L599 873 L601 880 L607 880 L603 882 L609 886 L606 892 L592 878 L590 873 L592 863 L594 861 L600 861Z';
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 
-/** One WebGL scene stays mounted while the visitor travels through the whole page. */
-export function ScrollWorld() {
-  const worldRef = useRef({ progress: 0, pointerX: 0, pointerY: 0 });
-  const frameRef = useRef(0);
-  const [pose, setPose] = useState({ mode: 'hero', side: 'right', chapter: 0 });
-  const [webglAvailable, setWebglAvailable] = useState(true);
-  const prefersReducedMotion = useReducedMotion();
+function Rider(){
+  return <svg className="flight-rider-svg" viewBox="326 214 352 754" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <clipPath id="kumar-rider-photo"><path clipRule="evenodd" d={outline}/></clipPath>
+      <linearGradient id="kumar-metal" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0" stopColor="#faf4e5"/><stop offset=".5" stopColor="#a49b91"/>
+        <stop offset="1" stopColor="#d3c7b6"/>
+      </linearGradient>
+    </defs>
+    <image href="/images/sky-cycle.webp" x="0" y="0" width="1080" height="1290"
+      preserveAspectRatio="none" clipPath="url(#kumar-rider-photo)"/>
+    <g fill="none" strokeLinecap="round">
+      <path d="M450 259 C466 330 479 430 491 489 M526 253 C513 342 503 429 491 489"
+        stroke="#6c483a" strokeWidth="7" opacity=".45"/>
+      <path d="M450 259 C466 330 479 430 491 489 M526 253 C513 342 503 429 491 489"
+        stroke="#c77b59" strokeWidth="4"/>
+    </g>
+    <g fill="url(#kumar-metal)" stroke="#69665e" strokeWidth="2">
+      <rect x="438" y="233" width="24" height="38" rx="11" transform="rotate(-12 450 252)"/>
+      <rect x="513" y="228" width="24" height="39" rx="11" transform="rotate(11 525 248)"/>
+      <circle cx="450" cy="251" r="5" fill="#5c615c"/>
+      <circle cx="525" cy="247" r="5" fill="#5c615c"/>
+    </g>
+  </svg>;
+}
 
-  useEffect(() => {
-    const canvas = document.createElement('canvas');
-    try {
-      const webgl = canvas.getContext('webgl2') || canvas.getContext('webgl');
-      setWebglAvailable(Boolean(webgl));
-    } catch {
-      setWebglAvailable(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    let lastMode = '';
-    let lastSide = '';
-    let lastChapter = -1;
-
-    const update = () => {
-      frameRef.current = 0;
-      const journey = document.getElementById('immersive-journey');
-      const contact = document.getElementById('contact');
-      if (!journey) return;
-      const scrollY = window.scrollY;
-      const viewport = Math.max(window.innerHeight, 1);
-      const journeyTop = journey.getBoundingClientRect().top + scrollY;
-      const journeyBottom = journeyTop + journey.offsetHeight;
-      const raw = (scrollY - journeyTop + viewport * 0.55) / Math.max(journey.offsetHeight - viewport * 0.35, 1);
-      const progress = clamp(raw, 0, 1);
-      worldRef.current.progress = progress;
-
-      let mode = 'story';
-      if (scrollY < journeyTop - viewport * 0.5) mode = 'hero';
-      else if (scrollY > journeyBottom - viewport * 0.45) mode = 'compact';
-      if (contact) {
-        const rect = contact.getBoundingClientRect();
-        if (rect.top < viewport * 0.87 && rect.bottom > viewport * 0.2) mode = 'contact';
-      }
-      const chapter = clamp(Math.floor((scrollY - journeyTop + viewport * 0.37) / viewport), 0, 2);
-      const side = mode === 'story' && chapter === 1 ? 'left' : 'right';
-      if (mode !== lastMode || side !== lastSide || chapter !== lastChapter) {
-        lastMode = mode;
-        lastSide = side;
-        lastChapter = chapter;
-        setPose({ mode, side, chapter });
-      }
+/** Photo-realistic figure travels on a diagonal line as the document scrolls. */
+export function ScrollWorld(){
+  const el=useRef(null),raf=useRef(0),reduce=useReducedMotion();
+  useEffect(()=>{
+    const root=el.current;if(!root)return;
+    let lastCompact=null;
+    const frame=()=>{
+      raf.current=0;
+      const journey=document.getElementById('immersive-journey');
+      if(!journey)return;
+      const scrollY=window.scrollY,h=Math.max(1,window.innerHeight);
+      const bottom=journey.getBoundingClientRect().bottom+scrollY;
+      const top=journey.getBoundingClientRect().top+scrollY;
+      const t=clamp((scrollY+h*.15)/Math.max(bottom-h*.6,1),0,1);
+      const compact=scrollY>bottom-h*.44;
+      const contact=document.getElementById('contact');
+      const end=Boolean(contact&&contact.getBoundingClientRect().top<h*.86);
+      root.style.setProperty('--flight-x',(compact?89:67+t*17).toFixed(2)+'vw');
+      root.style.setProperty('--flight-y',(compact?40:-8+t*31).toFixed(2)+'vh');
+      root.style.setProperty('--flight-scale',(compact?.42:1.02-t*.25).toFixed(3));
+      root.style.setProperty('--flight-opacity',String(reduce&&scrollY>top?0:(end?0:(compact?.51:1))));
+      if(lastCompact!==compact){root.classList.toggle('flight-compact',compact);lastCompact=compact;}
     };
-
-    const schedule = () => {
-      if (!frameRef.current) frameRef.current = window.requestAnimationFrame(update);
-    };
-    const onPointerMove = (event) => {
-      worldRef.current.pointerX = clamp((event.clientX / Math.max(window.innerWidth, 1)) * 2 - 1, -1, 1);
-      worldRef.current.pointerY = clamp((event.clientY / Math.max(window.innerHeight, 1)) * 2 - 1, -1, 1);
-    };
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      window.removeEventListener('pointermove', onPointerMove);
-      if (frameRef.current) window.cancelAnimationFrame(frameRef.current);
-    };
-  }, []);
-
-  return (
-    <div className={'world-portal world-portal-' + pose.mode + ' world-portal-' + pose.side} aria-hidden="true">
-      <div className="world-portal-aura" />
-      <div className="world-portal-circle world-portal-circle-outer" />
-      <div className="world-portal-circle world-portal-circle-inner" />
-      <div className="world-portal-canvas">
-        <Suspense fallback={<div className="world-portal-fallback" />}>
-          {prefersReducedMotion || !webglAvailable
-            ? <div className="world-portal-fallback" />
-            : <OrchardScene progressRef={worldRef} />}
-        </Suspense>
-      </div>
-      <div className="world-portal-stamp"><span className="world-portal-sparkle">✳</span><span>ZIP INTO<br />KUMAR</span></div>
-      <div className="world-portal-caption">Adventure, carried on the breeze <span aria-hidden="true">↗</span></div>
+    const schedule=()=>{if(!raf.current)raf.current=requestAnimationFrame(frame);};
+    const pointer=e=>{if(!reduce)root.style.setProperty('--flight-tilt',(((e.clientX/window.innerWidth)-.5)*8).toFixed(2)+'deg');};
+    frame();
+    window.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('resize',schedule);
+    window.addEventListener('pointermove',pointer,{passive:true});
+    return()=>{window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);window.removeEventListener('pointermove',pointer);if(raf.current)cancelAnimationFrame(raf.current);};
+  },[reduce]);
+  return <div className="flight-layer" ref={el} aria-hidden="true">
+    <div className="flight-rider">
+      <div className="flight-cable"/><div className="flight-cable flight-cable-two"/>
+      <Rider/>
+      <span className="flight-rider-caption">A REAL MOMENT AT KUMAR <span aria-hidden="true">✳</span></span>
     </div>
-  );
+  </div>;
 }
 
 function StoryReveal({ children, className = '' }) {
@@ -118,38 +95,38 @@ export function ScrollJourney() {
           <StoryReveal className="journey-copy">
             <div className="journey-kicker"><span className="journey-chapter-num">01 / 03</span><span className="journey-kicker-rule" /> THE TAKE-OFF</div>
             <div className="journey-icon"><Leaf size={24} strokeWidth={1.25} /></div>
-            <h2>Step up.<br />Breathe in.<br /><em>Get ready.</em></h2>
-            <p>Begin high above the greenery, where the first view opens up and the whole place starts to feel like an escape.</p>
+            <h2>Take the<br />scenic <em>route.</em></h2>
+            <p>See the landscape from a new perspective as the zipline adventure begins, surrounded by green trees and the open sky.</p>
             <a className="journey-text-link" href="#about">Meet Kumar Agro Tourism <ArrowUpRight size={17} /></a>
           </StoryReveal>
-          <div className="journey-side-note"><span>START PLATFORM ABOVE THE GROVES</span><span>DONDAICHA, MAHARASHTRA</span></div>
+          <div className="journey-side-note"><span>THE ADVENTURE STARTS HERE</span><span>DONDAICHA, MAHARASHTRA</span></div>
         </div>
-        <div className="journey-bottom-mark"><span>FOLLOW THE RIDE</span><ArrowDown size={15}/></div>
+        <div className="journey-bottom-mark"><span>SCROLL TO GLIDE</span><ArrowDown size={15}/></div>
       </div>
       <div className="journey-panel journey-panel-adventure">
         <div className="journey-inner page-container journey-inner-right">
           <StoryReveal className="journey-copy">
-            <div className="journey-kicker"><span className="journey-chapter-num">02 / 03</span><span className="journey-kicker-rule" /> THE GLIDE</div>
+            <div className="journey-kicker"><span className="journey-chapter-num">02 / 03</span><span className="journey-kicker-rule" /> THE FLIGHT</div>
             <div className="journey-icon"><Mountain size={26} strokeWidth={1.25} /></div>
-            <h2>Zip across.<br /><em>Feel the rush.</em></h2>
-            <p>The signature moment of the experience — sweeping over trees, water and play zones with a view that keeps unfolding as you move.</p>
+            <h2>Feel the<br /><em>freedom.</em></h2>
+            <p>Ride above the trees, let the breeze set the pace, and make a memory that stays with you.</p>
             <a className="journey-text-link" href="#experiences">Explore the experiences <ArrowUpRight size={17} /></a>
           </StoryReveal>
         </div>
-        <div className="journey-side-caption">A PREMIUM LITTLE ADVENTURE IN MOTION <span>✳</span></div>
+        <div className="journey-side-caption">A REAL EXPERIENCE. A LASTING MEMORY. <span>✳</span></div>
       </div>
       <div className="journey-panel journey-panel-water">
         <div className="journey-inner page-container">
           <StoryReveal className="journey-copy">
             <div className="journey-kicker"><span className="journey-chapter-num">03 / 03</span><span className="journey-kicker-rule" /> THE LANDING</div>
             <div className="journey-icon"><Waves size={27} strokeWidth={1.3} /></div>
-            <h2>Touch down.<br /><em>Keep the day going.</em></h2>
-            <p>Once the ride ends, the fun keeps flowing — water games, food, laughter and the kind of memories that fill the rest of the day.</p>
+            <h2>One ride.<br /><em>A whole day.</em></h2>
+            <p>The zipline is just the beginning. Stay for water activities, outdoor games, good food, and shared moments.</p>
             <a className="journey-text-link" href="#packages">Find your perfect day <ArrowUpRight size={17} /></a>
           </StoryReveal>
-          <div className="journey-aside-photo"><img src="/images/zipline.webp" alt="Guests enjoying water activities at Kumar Agro Tourism" loading="lazy" /><span>THE SIGNATURE RIDE</span></div>
+          <div className="journey-aside-photo"><img src="/images/zipline.webp" alt="Sky cycling experience at Kumar Agro Tourism" loading="lazy" /><span>MORE TO EXPERIENCE</span></div>
         </div>
-        <div className="journey-final-line">ARRIVE FOR NATURE. STAY FOR THE MOMENTS IN BETWEEN.</div>
+        <div className="journey-final-line">COME FOR THE ADVENTURE. STAY FOR THE FEELING.</div>
       </div>
     </section>
   );
