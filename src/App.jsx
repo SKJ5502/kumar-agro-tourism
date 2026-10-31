@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Check,
@@ -6,7 +6,8 @@ import {
   MoveUpRight, Phone, Sparkles, Sun, Waves, X,
 } from 'lucide-react';
 
-const OrchardScene = lazy(() => import('./components/OrchardScene.jsx'));
+import { ScrollWorld, ScrollJourney } from './components/ScrollWorld.jsx';
+import './scroll-story.css';
 const BOOKING_PHONE = '+918390300030';
 const WHATSAPP = 'https://wa.me/918390300030?text=Hello%20Kumar%20Agro%20Tourism%2C%20I%20would%20like%20to%20plan%20a%20visit.';
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=Kumar+Agro+Tourism+Dondaicha';
@@ -112,24 +113,14 @@ function Hero() {
           <h1 id="hero-title">Feel more.<br />Do more.<br /><em>Live a little.</em></h1>
           <p>Where adventure feels effortless, time slows down, and your favourite people feel a little closer.</p>
           <div className="hero-buttons">
-            <a className="button button-cream" href="#experiences">Explore the experience <ArrowUpRight size={18} /></a>
+            <a className="button button-cream" href="#immersive-journey">Explore the experience <ArrowUpRight size={18} /></a>
             <a className="button-text-light" href="#packages">View day packages <ArrowRight size={19} /></a>
           </div>
-        </motion.div>
-        <motion.div className="hero-world" initial={reduceMotion ? false : { opacity: 0, scale: 0.89, x: 30 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: 1.3, delay: 0.25, ease: [0.2, 1, 0.25, 1] }}>
-          <div className="world-glow" />
-          <div className="world-ring world-ring-one" />
-          <div className="world-ring world-ring-two" />
-          <Suspense fallback={<div className="hero-3d-fallback" />}>
-            {reduceMotion ? <div className="hero-3d-fallback" /> : <OrchardScene />}
-          </Suspense>
-          <span className="world-callout world-callout-top"><span className="callout-star">*</span> A world of wonderful</span>
-          <span className="world-callout world-callout-bottom"><span className="little-sparkle">&#10022;</span> Nature, with a little magic</span>
         </motion.div>
       </div>
       <div className="hero-bottom page-container">
         <div className="hero-footer-caption"><span className="hero-caption-icon"><Leaf size={18} /></span><span>ONE PLACE. MANY PLANS.<small>Nature &middot; Food &middot; Fun &middot; Adventure</small></span></div>
-        <a href="#about" className="scroll-cue"><span>SCROLL TO WANDER</span><span className="scroll-circle"><ArrowDown size={17} /></span></a>
+        <a href="#immersive-journey" className="scroll-cue"><span>SCROLL TO WANDER</span><span className="scroll-circle"><ArrowDown size={17} /></span></a>
       </div>
     </section>
   );
@@ -340,8 +331,10 @@ export default function App() {
   return (
     <>
       <Header />
+      <ScrollWorld />
       <main>
         <Hero />
+        <ScrollJourney />
         <IntroStrip />
         <About />
         <Experiences />
