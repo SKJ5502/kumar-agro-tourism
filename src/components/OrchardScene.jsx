@@ -55,6 +55,141 @@ function Tree({ position, scale = 1, tone = 0 }) {
   );
 }
 
+
+const ZIPLINE_START = new THREE.Vector3(-1.82, 2.72, -0.04);
+const ZIPLINE_END = new THREE.Vector3(1.79, 1.85, 0.54);
+
+function ZiplineTower({ landing = false }) {
+  const x = landing ? 1.82 : -1.84;
+  const z = landing ? 0.53 : -0.04;
+  const deckY = landing ? 1.28 : 1.76;
+  const wood = '#a17a59';
+  return (
+    <group position={[x, -0.43, z]}>
+      {[-0.31, 0.31].flatMap((dx,i) => [-0.27, 0.27].map((dz,j) => (
+        <mesh key={i+'-'+j} castShadow position={[dx, deckY/2, dz]}>
+          <cylinderGeometry args={[0.052, 0.068, deckY, 8]} />
+          <meshStandardMaterial color={wood} roughness={0.96} />
+        </mesh>
+      )))}
+      <mesh castShadow position={[0, deckY, 0]}>
+        <boxGeometry args={[0.93, 0.13, 0.78]}/>
+        <meshStandardMaterial color="#decbaa" roughness={0.93}/>
+      </mesh>
+      {[-0.32,0.32].map((dx,i) => (
+        <mesh key={'rail'+i} castShadow position={[dx, deckY+0.27,-0.28]}>
+          <boxGeometry args={[0.07,0.57,0.065]}/>
+          <meshStandardMaterial color={wood} roughness={0.94}/>
+        </mesh>
+      ))}
+      <mesh castShadow position={[0, deckY+0.54,-0.28]}>
+        <boxGeometry args={[0.75, 0.06,0.06]}/>
+        <meshStandardMaterial color={wood} roughness={0.94}/>
+      </mesh>
+    </group>
+  );
+}
+
+function ZiplineCable() {
+  const difference = ZIPLINE_END.clone().sub(ZIPLINE_START);
+  const middle = ZIPLINE_START.clone().add(ZIPLINE_END).multiplyScalar(0.5);
+  const orientation = new THREE.Quaternion().setFromUnitVectors(
+    new THREE.Vector3(0,1,0), difference.clone().normalize()
+  );
+  return (
+    <group>
+      <mesh castShadow position={middle} quaternion={orientation}>
+        <cylinderGeometry args={[0.013, 0.013, difference.length(), 12]}/>
+        <meshStandardMaterial color="#efe7d3" metalness={0.42} roughness={0.42}/>
+      </mesh>
+      {[0.08,0.92].map((t,i) => (
+        <mesh key={i} position={ZIPLINE_START.clone().lerp(ZIPLINE_END,t)}>
+          <sphereGeometry args={[0.024,10,8]}/>
+          <meshStandardMaterial color="#d7c6a6" metalness={0.35} roughness={0.45}/>
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function ZiplineRider({ progressRef }) {
+  const rig = useRef();
+  const target = useMemo(()=>new THREE.Vector3(),[]);
+  useFrame(({ clock }, delta)=>{
+    if (!rig.current) return;
+    const values = progressRef?.current ?? { progress:0, pointerX:0, pointerY:0 };
+    const t = THREE.MathUtils.smoothstep(
+      THREE.MathUtils.clamp(values.progress,0,1),0,1
+    );
+    target.copy(ZIPLINE_START).lerp(ZIPLINE_END,t);
+    target.y += Math.sin(clock.elapsedTime * 3.1 + t*4) * 0.014;
+    rig.current.position.lerp(target, 1 - Math.exp(-Math.min(delta,0.07)*5.7));
+    rig.current.rotation.z = THREE.MathUtils.damp(rig.current.rotation.z,-0.13 + t * .12,4,delta);
+    rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y,values.pointerX*.12,3,delta);
+  });
+  return (
+    <group ref={rig} position={ZIPLINE_START}>
+      {/* Trolley, hanging ropes, visible safety harness */}
+      <mesh castShadow position={[0,0,0]}>
+        <boxGeometry args={[.24,.13,.17]}/>
+        <meshStandardMaterial color="#c4baa7" metalness={.57} roughness={.34}/>
+      </mesh>
+      <mesh position={[0,-.08,.11]}>
+        <torusGeometry args={[.11,.021,8,16]}/>
+        <meshStandardMaterial color="#e7d9ba" metalness={.32} roughness={.58}/>
+      </mesh>
+      {[-.11,.11].map((x,i)=>(
+        <mesh key={i} castShadow position={[x,-.30,0]}>
+          <cylinderGeometry args={[.012,.012,.46,8]}/>
+          <meshStandardMaterial color="#e1d0a4" roughness={.75}/>
+        </mesh>
+      ))}
+      <mesh castShadow position={[0,-.43,.012]}>
+        <sphereGeometry args={[.135,18,14]}/>
+        <meshStandardMaterial color="#eee8d7" roughness={.6}/>
+      </mesh>
+      <mesh position={[0,-.465,.135]}>
+        <sphereGeometry args={[.088,14,12]}/>
+        <meshStandardMaterial color="#c39470" roughness={.9}/>
+      </mesh>
+      <mesh castShadow position={[0,-.74,0]}>
+        <capsuleGeometry args={[.155,.29,6,12]}/>
+        <meshStandardMaterial color="#d4ad6f" roughness={.93}/>
+      </mesh>
+      {/* Raised arms hold the hanging handle */}
+      {[-1,1].map((side,i)=>(
+        <group key={i}>
+          <mesh castShadow position={[side*.19,-.63,.06]} rotation={[0,0,-side*.55]}>
+            <capsuleGeometry args={[.045,.25,5,10]}/>
+            <meshStandardMaterial color="#c39470" roughness={.9}/>
+          </mesh>
+          <mesh castShadow position={[side*.085,-.33,.08]}>
+            <sphereGeometry args={[.052,10,8]}/>
+            <meshStandardMaterial color="#c39470" roughness={.91}/>
+          </mesh>
+          <mesh castShadow position={[side*.095,-1.08,0]} rotation={[0,0,side*.24]}>
+            <capsuleGeometry args={[.065,.32,5,12]}/>
+            <meshStandardMaterial color="#3e665a" roughness={.96}/>
+          </mesh>
+          <mesh castShadow position={[side*.16,-1.30,.095]}>
+            <boxGeometry args={[.19,.075,.23]}/>
+            <meshStandardMaterial color="#544b3d" roughness={.95}/>
+          </mesh>
+        </group>
+      ))}
+      {/* Dark climbing harness distinguishes the rider from a decorative figurine */}
+      <mesh castShadow position={[0,-.91,.02]}>
+        <torusGeometry args={[.16,.025,10,20]}/>
+        <meshStandardMaterial color="#424d46" roughness={.82}/>
+      </mesh>
+      <mesh castShadow position={[0,-.79,.15]} rotation={[.1,0,0]}>
+        <boxGeometry args={[.18,.055,.04]}/>
+        <meshStandardMaterial color="#424d46" roughness={.84}/>
+      </mesh>
+    </group>
+  );
+}
+
 function GardenSwing() {
   const timber = '#997758';
   return (
@@ -199,8 +334,8 @@ function Island({ progressRef }) {
     const t = clock.getElapsedTime();
     const state = progressRef?.current ?? { progress: 0, pointerX: 0, pointerY: 0 };
     const progress = THREE.MathUtils.clamp(state.progress, 0, 1);
-    const desiredY = -.23 + progress * Math.PI * 1.17 + state.pointerX * .13;
-    const desiredX = .065 + Math.sin(progress*Math.PI*1.9)*.095 - state.pointerY*.042;
+    const desiredY = -.27 + progress * .72 + state.pointerX * .12;
+    const desiredX = .075 + Math.sin(progress * Math.PI) * .05 - state.pointerY * .038;
     const pulse = 1 + Math.sin(progress*Math.PI)*.115;
     world.current.rotation.y = THREE.MathUtils.damp(world.current.rotation.y, desiredY, 3.2, delta);
     world.current.rotation.x = THREE.MathUtils.damp(world.current.rotation.x, desiredX, 3.2, delta);
@@ -228,7 +363,10 @@ function Island({ progressRef }) {
       </mesh>
       <Pond />
       <Meadow />
-      <GardenSwing />
+      <ZiplineTower />
+      <ZiplineTower landing />
+      <ZiplineCable />
+      <ZiplineRider progressRef={progressRef} />
       {steppingStones.map((stone, i) => (
         <mesh key={i} castShadow receiveShadow rotation={[-Math.PI / 2, 0, i * 0.14]} position={[stone.x, -0.434, stone.z]} scale={[stone.s, 1, 0.75]}>
           <circleGeometry args={[0.21, 16]} />
@@ -281,7 +419,7 @@ function Scene({ progressRef }) {
 
 export default function OrchardScene({ progressRef }) {
   const [failed, setFailed] = useState(false);
-  if (failed) return <div className="hero-3d-fallback" aria-label="Garden and nature photograph" />;
+  if (failed) return <div className="hero-3d-fallback" aria-label="Zipline adventure photograph" />;
   return (
     <Canvas
       className="three-canvas"
@@ -291,7 +429,7 @@ export default function OrchardScene({ progressRef }) {
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       onCreated={({ gl }) => gl.setClearColor('#000000', 0)}
       onError={() => setFailed(true)}
-      aria-label="Interactive 3D miniature of the Kumar Agro Tourism gardens"
+      aria-label="Scroll-controlled 3D zipline adventure at Kumar Agro Tourism"
     >
       <Scene progressRef={progressRef} />
     </Canvas>

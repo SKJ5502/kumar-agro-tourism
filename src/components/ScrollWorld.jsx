@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, Leaf, Sun, Waves } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Leaf, Mountain, Waves } from 'lucide-react';
 
 const OrchardScene = lazy(() => import('./OrchardScene.jsx'));
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -89,8 +89,8 @@ export function ScrollWorld() {
             : <OrchardScene progressRef={worldRef} />}
         </Suspense>
       </div>
-      <div className="world-portal-stamp"><span className="world-portal-sparkle">✳</span><span>A LITTLE WORLD<br />OF KUMAR</span></div>
-      <div className="world-portal-caption">A living little escape <span aria-hidden="true">↗</span></div>
+      <div className="world-portal-stamp"><span className="world-portal-sparkle">✳</span><span>ZIP INTO<br />KUMAR</span></div>
+      <div className="world-portal-caption">Adventure, carried on the breeze <span aria-hidden="true">↗</span></div>
     </div>
   );
 }
@@ -116,40 +116,40 @@ export function ScrollJourney() {
         <div className="journey-panel-lines" aria-hidden="true" />
         <div className="journey-inner page-container">
           <StoryReveal className="journey-copy">
-            <div className="journey-kicker"><span className="journey-chapter-num">01 / 03</span><span className="journey-kicker-rule" /> THE PLACE</div>
+            <div className="journey-kicker"><span className="journey-chapter-num">01 / 03</span><span className="journey-kicker-rule" /> THE TAKE-OFF</div>
             <div className="journey-icon"><Leaf size={24} strokeWidth={1.25} /></div>
-            <h2>Good things<br />grow <em>here.</em></h2>
-            <p>Under the trees, away from the rush. Discover the little world where open skies, green paths and unhurried moments come naturally.</p>
+            <h2>Step up.<br />Breathe in.<br /><em>Get ready.</em></h2>
+            <p>Begin high above the greenery, where the first view opens up and the whole place starts to feel like an escape.</p>
             <a className="journey-text-link" href="#about">Meet Kumar Agro Tourism <ArrowUpRight size={17} /></a>
           </StoryReveal>
-          <div className="journey-side-note"><span>MADE FOR SLOW MORNINGS</span><span>DONDAICHA, MAHARASHTRA</span></div>
+          <div className="journey-side-note"><span>START PLATFORM ABOVE THE GROVES</span><span>DONDAICHA, MAHARASHTRA</span></div>
         </div>
-        <div className="journey-bottom-mark"><span>DISCOVER MORE</span><ArrowDown size={15}/></div>
+        <div className="journey-bottom-mark"><span>FOLLOW THE RIDE</span><ArrowDown size={15}/></div>
       </div>
       <div className="journey-panel journey-panel-adventure">
         <div className="journey-inner page-container journey-inner-right">
           <StoryReveal className="journey-copy">
-            <div className="journey-kicker"><span className="journey-chapter-num">02 / 03</span><span className="journey-kicker-rule" /> THE THRILL</div>
-            <div className="journey-icon"><Sun size={26} strokeWidth={1.25} /></div>
-            <h2>A little wild.<br /><em>A lot of joy.</em></h2>
-            <p>Sky cycling, ziplining, play and the unexpected delight of taking the scenic route. Let curiosity lead the way.</p>
+            <div className="journey-kicker"><span className="journey-chapter-num">02 / 03</span><span className="journey-kicker-rule" /> THE GLIDE</div>
+            <div className="journey-icon"><Mountain size={26} strokeWidth={1.25} /></div>
+            <h2>Zip across.<br /><em>Feel the rush.</em></h2>
+            <p>The signature moment of the experience — sweeping over trees, water and play zones with a view that keeps unfolding as you move.</p>
             <a className="journey-text-link" href="#experiences">Explore the experiences <ArrowUpRight size={17} /></a>
           </StoryReveal>
         </div>
-        <div className="journey-side-caption">FIND YOUR OWN KIND OF ADVENTURE <span>✳</span></div>
+        <div className="journey-side-caption">A PREMIUM LITTLE ADVENTURE IN MOTION <span>✳</span></div>
       </div>
       <div className="journey-panel journey-panel-water">
         <div className="journey-inner page-container">
           <StoryReveal className="journey-copy">
-            <div className="journey-kicker"><span className="journey-chapter-num">03 / 03</span><span className="journey-kicker-rule" /> THE MEMORIES</div>
+            <div className="journey-kicker"><span className="journey-chapter-num">03 / 03</span><span className="journey-kicker-rule" /> THE LANDING</div>
             <div className="journey-icon"><Waves size={27} strokeWidth={1.3} /></div>
-            <h2>Make a splash.<br /><em>Stay a while.</em></h2>
-            <p>Water games, good food, and your favourite people together. From the first morning smile to the last golden hour.</p>
+            <h2>Touch down.<br /><em>Keep the day going.</em></h2>
+            <p>Once the ride ends, the fun keeps flowing — water games, food, laughter and the kind of memories that fill the rest of the day.</p>
             <a className="journey-text-link" href="#packages">Find your perfect day <ArrowUpRight size={17} /></a>
           </StoryReveal>
-          <div className="journey-aside-photo"><img src="/images/water-play.webp" alt="Guests enjoying water activities at Kumar Agro Tourism" loading="lazy" /><span>REAL MOMENTS AT KUMAR</span></div>
+          <div className="journey-aside-photo"><img src="/images/zipline.webp" alt="Guests enjoying water activities at Kumar Agro Tourism" loading="lazy" /><span>THE SIGNATURE RIDE</span></div>
         </div>
-        <div className="journey-final-line">NATURE IS THE DESTINATION. TOGETHER IS THE REASON.</div>
+        <div className="journey-final-line">ARRIVE FOR NATURE. STAY FOR THE MOMENTS IN BETWEEN.</div>
       </div>
     </section>
   );
