@@ -18,9 +18,9 @@ function Rider(){
     <image href="/images/zipline.webp" x="0" y="0" width="1080" height="1290"
       preserveAspectRatio="none" clipPath="url(#kumar-rider-photo)"/>
     <g fill="none" strokeLinecap="round">
-      <path d="M450 259 C466 330 479 430 491 489 M526 253 C513 342 503 429 491 489"
+      <path d="M450 259 C466 330 479 441 491 522 M526 253 C513 342 503 441 491 522"
         stroke="#6c483a" strokeWidth="7" opacity=".45"/>
-      <path d="M450 259 C466 330 479 430 491 489 M526 253 C513 342 503 429 491 489"
+      <path d="M450 259 C466 330 479 441 491 522 M526 253 C513 342 503 441 491 522"
         stroke="#c77b59" strokeWidth="4"/>
     </g>
     <g fill="url(#kumar-metal)" stroke="#69665e" strokeWidth="2">
