@@ -15,7 +15,7 @@ function Rider(){
         <stop offset="1" stopColor="#d3c7b6"/>
       </linearGradient>
     </defs>
-    <image href="/images/sky-cycle.webp" x="0" y="0" width="1080" height="1290"
+    <image href="/images/zipline.webp" x="0" y="0" width="1080" height="1290"
       preserveAspectRatio="none" clipPath="url(#kumar-rider-photo)"/>
     <g fill="none" strokeLinecap="round">
       <path d="M450 259 C466 330 479 430 491 489 M526 253 C513 342 503 429 491 489"
@@ -124,7 +124,7 @@ export function ScrollJourney() {
             <p>The zipline is just the beginning. Stay for water activities, outdoor games, good food, and shared moments.</p>
             <a className="journey-text-link" href="#packages">Find your perfect day <ArrowUpRight size={17} /></a>
           </StoryReveal>
-          <div className="journey-aside-photo"><img src="/images/zipline.webp" alt="Sky cycling experience at Kumar Agro Tourism" loading="lazy" /><span>MORE TO EXPERIENCE</span></div>
+          <div className="journey-aside-photo"><img src="/images/sky-cycle.webp" alt="Sky cycling experience at Kumar Agro Tourism" loading="lazy" /><span>MORE TO EXPERIENCE</span></div>
         </div>
         <div className="journey-final-line">COME FOR THE ADVENTURE. STAY FOR THE FEELING.</div>
       </div>
