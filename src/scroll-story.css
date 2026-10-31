@@ -10,7 +10,7 @@
 .hero .hero-bottom { z-index: 26; }
 .hero::after { content: 'A LIVING WORLD · SCROLL TO EXPLORE'; position: absolute; right: 38px; top: 28px; z-index: 21; font-size: 8px; letter-spacing: .19em; color: rgba(255,248,230,.77); pointer-events:none; }
 
-.world-portal { position: fixed; pointer-events: none; isolation: isolate; z-index: 12; top: 52svh; right: -1vw; width: min(58vw, 835px); height: min(86svh, 835px); transform: translate3d(0, -50%, 0); transition: width .95s cubic-bezier(.22,1,.36,1), height .95s cubic-bezier(.22,1,.36,1), top .95s cubic-bezier(.22,1,.36,1), right .95s cubic-bezier(.22,1,.36,1), left .95s cubic-bezier(.22,1,.36,1), opacity .75s ease, filter .9s ease; will-change: width,height,top,right; }
+.world-portal { position: fixed; pointer-events: none; isolation: isolate; z-index: 12; top: 52svh; right: -1vw; width: min(58vw, 835px); height: min(86svh, 835px); transform: translate3d(0, -50%, 0); transition: transform .95s cubic-bezier(.22,1,.36,1), width .95s cubic-bezier(.22,1,.36,1), height .95s cubic-bezier(.22,1,.36,1), top .95s cubic-bezier(.22,1,.36,1), right .95s cubic-bezier(.22,1,.36,1), left .95s cubic-bezier(.22,1,.36,1), opacity .75s ease, filter .9s ease; will-change: width,height,top,right; }
 .world-portal-aura { position: absolute; inset: 4%; z-index: -3; border-radius: 50%; background: radial-gradient(circle at 47% 49%,rgba(230,211,141,.26),rgba(243,219,171,.13) 33%,rgba(246,235,199,.06) 48%,transparent 71%); filter: blur(8px); }
 .world-portal-circle { position: absolute; z-index: -1; left: 10.5%; top: 10.5%; height: 79%; width: 79%; border: 1px solid rgba(230,223,188,.31); border-radius: 50%; transition: opacity .5s; }
 .world-portal-circle-inner { inset: 19% auto auto 19%; width: 62%; height: 62%; border-color: rgba(237,228,186,.2); }
@@ -23,7 +23,7 @@
 .world-portal-caption span { margin-left:5px; }
 .world-portal-story { width:min(55vw,810px); top:51svh; right:1vw; }
 .world-portal-story .world-portal-stamp, .world-portal-story .world-portal-caption { color:#68765b; text-shadow:none; }
-.world-portal-story.world-portal-left { right:auto; left:1.3vw; }
+.world-portal-story.world-portal-left { transform: translate3d(calc(-100vw + 100% + 2.3vw), -50%, 0); }
 .world-portal-story.world-portal-left .world-portal-stamp { right:auto; left:13%; }
 .world-portal-compact { top:72svh; right:32px; width:clamp(160px,17vw,224px); height:clamp(160px,17vw,224px); opacity:.90; filter:drop-shadow(0 18px 29px rgba(17,49,30,.2)); }
 .world-portal-compact::before { content:''; position:absolute; inset:0; border:1px solid rgba(89,123,92,.31); border-radius:50%; background:linear-gradient(130deg,rgba(251,250,241,.8),rgba(232,235,216,.48)); box-shadow:0 18px 35px rgba(8,46,26,.09); }
@@ -84,7 +84,7 @@
  .hero h1 { font-size:clamp(4.5rem,8vw,6.8rem); }
  .world-portal-hero { width:69vw; right:-17vw; top:54svh; opacity:.75; }
  .world-portal-story { width:69vw; right:-8vw; }
- .world-portal-story.world-portal-left { left:-9vw; }
+ .world-portal-story.world-portal-left { transform:translate3d(calc(-100vw + 100% - 1vw), -50%, 0); }
  .journey-copy { width:50%; }
  .journey-panel-adventure .journey-copy { width:51%; }
  .journey-copy h2 { font-size:clamp(3.5rem,7.2vw,5.6rem); }
@@ -101,7 +101,7 @@
  .world-portal-hero { width:105vw; height:65svh; right:-47vw; top:53svh; opacity:.54; }
  .world-portal-hero .world-portal-stamp, .world-portal-hero .world-portal-caption { display:none; }
  .world-portal-story { width:100vw; height:62svh; right:-33vw; top:72svh; opacity:.88; }
- .world-portal-story.world-portal-left { left:auto; right:-33vw; }
+ .world-portal-story.world-portal-left { right:-33vw; transform:translate3d(0,-50%,0); }
  .world-portal-story .world-portal-stamp, .world-portal-story .world-portal-caption { display:none; }
  .world-portal-compact { width:112px; height:112px; right:13px; top:calc(100svh - 150px); opacity:.74; }
  .world-portal-contact { width:86vw; height:52svh; top:70svh; right:-38vw; opacity:.34; }
