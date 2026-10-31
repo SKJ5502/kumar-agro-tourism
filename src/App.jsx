@@ -7,7 +7,6 @@ import {
 } from 'lucide-react';
 
 import { ScrollWorld, ScrollJourney } from './components/ScrollWorld.jsx';
-import './scroll-story.css';
 const BOOKING_PHONE = '+918390300030';
 const WHATSAPP = 'https://wa.me/918390300030?text=Hello%20Kumar%20Agro%20Tourism%2C%20I%20would%20like%20to%20plan%20a%20visit.';
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=Kumar+Agro+Tourism+Dondaicha';
