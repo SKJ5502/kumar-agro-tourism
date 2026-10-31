@@ -15,30 +15,92 @@ const palette = {
 };
 
 function Tree({ position, scale = 1, tone = 0 }) {
-  const leafColor = palette.foliage[tone % palette.foliage.length];
+  const foliage = palette.foliage;
+  const clusters = [
+    [-0.27, 1.28, -0.1, .48, .43, .48],
+    [0.28, 1.31, 0.02, .52, .41, .46],
+    [0.02, 1.56, -0.13, .52, .48, .50],
+    [-0.04, 1.24, 0.32, .45, .39, .48],
+    [0.36, 1.63, 0.17, .34, .33, .40],
+    [-0.35, 1.63, 0.06, .33, .30, .39],
+    [-0.02, 1.84, -0.08, .34, .26, .35],
+  ];
   return (
     <group position={position} scale={scale}>
-      <mesh castShadow position={[0, 0.55, 0]}>
-        <cylinderGeometry args={[0.095, 0.14, 1.15, 8]} />
-        <meshStandardMaterial color={palette.trunk} roughness={1} />
+      <mesh castShadow position={[0, .61, 0]}>
+        <cylinderGeometry args={[.087, .17, 1.19, 10]} />
+        <meshStandardMaterial color={palette.trunk} roughness={.99} />
       </mesh>
-      <mesh castShadow position={[0, 1.26, 0]}>
-        <icosahedronGeometry args={[0.55, 2]} />
-        <meshStandardMaterial color={leafColor} roughness={0.94} flatShading />
+      <mesh castShadow position={[-.19, 1.15, -.06]} rotation={[.21, 0, .49]}>
+        <cylinderGeometry args={[.045, .09, .65, 8]} />
+        <meshStandardMaterial color="#74533b" roughness={1} />
       </mesh>
-      <mesh castShadow position={[-0.31, 1.11, 0.04]}>
-        <icosahedronGeometry args={[0.38, 2]} />
-        <meshStandardMaterial color={palette.foliage[(tone + 1) % 5]} roughness={0.98} flatShading />
+      <mesh castShadow position={[.22, 1.15, .02]} rotation={[.08, 0, -.51]}>
+        <cylinderGeometry args={[.035, .075, .63, 8]} />
+        <meshStandardMaterial color="#74533b" roughness={1} />
       </mesh>
-      <mesh castShadow position={[0.33, 1.16, -0.05]}>
-        <icosahedronGeometry args={[0.4, 2]} />
-        <meshStandardMaterial color={palette.foliage[(tone + 2) % 5]} roughness={0.94} flatShading />
+      {clusters.map(([x,y,z,sx,sy,sz],i)=>(
+        <mesh castShadow receiveShadow key={i} position={[x,y,z]} scale={[sx,sy,sz]}>
+          <sphereGeometry args={[1, 16, 12]} />
+          <meshStandardMaterial color={foliage[(tone+i)%foliage.length]} roughness={.93} />
+        </mesh>
+      ))}
+      {[[-.28,1.12,.27],[.34,1.22,.26],[-.05,1.51,.38]].map((pos,i)=>(
+        <mesh key={'fruit-'+i} position={pos}>
+          <sphereGeometry args={[.057, 10, 8]} />
+          <meshStandardMaterial color={i===1?'#dcae5a':'#c69c47'} roughness={.54}/>
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function GardenSwing() {
+  const timber = '#997758';
+  return (
+    <group position={[1.19,-.43,1.2]} scale={.7}>
+      <mesh castShadow position={[-.48,.85,0]} rotation={[0,0,-.13]}>
+        <cylinderGeometry args={[.045,.058,1.8,8]}/><meshStandardMaterial color={timber} roughness={1}/>
       </mesh>
-      <mesh castShadow position={[0.08, 1.61, 0.08]}>
-        <icosahedronGeometry args={[0.34, 2]} />
-        <meshStandardMaterial color={leafColor} roughness={1} flatShading />
+      <mesh castShadow position={[.48,.85,0]} rotation={[0,0,.13]}>
+        <cylinderGeometry args={[.045,.058,1.8,8]}/><meshStandardMaterial color={timber} roughness={1}/>
+      </mesh>
+      <mesh castShadow position={[0,1.73,0]} rotation={[0,0,Math.PI/2]}>
+        <cylinderGeometry args={[.06,.06,1.23,8]}/><meshStandardMaterial color={timber} roughness={1}/>
+      </mesh>
+      {[-.3,.3].map(x=><mesh key={x} position={[x,.97,.04]}>
+        <cylinderGeometry args={[.012,.012,1.31,6]}/><meshStandardMaterial color="#e7dbb4" metalness={.1} roughness={.83}/>
+      </mesh>)}
+      <mesh castShadow position={[0,.32,.04]}>
+        <boxGeometry args={[.79,.075,.34]}/><meshStandardMaterial color="#b98b5a" roughness={.92}/>
       </mesh>
     </group>
+  );
+}
+
+function Meadow() {
+  const instance = useRef();
+  React.useEffect(() => {
+    if (!instance.current) return;
+    const dummy = new THREE.Object3D();
+    const count = instance.current.count;
+    for (let i=0; i<count; i++) {
+      const angle = i * 2.399963;
+      const radius = Math.sqrt((i+.5)/count) * 2.34;
+      dummy.position.set(Math.cos(angle)*radius, -.416, Math.sin(angle)*radius);
+      dummy.rotation.set(0, angle, Math.sin(i*8.17)*.12);
+      const h = .7+(i%6)*.13;
+      dummy.scale.set(.67,h,.67);
+      dummy.updateMatrix();
+      instance.current.setMatrixAt(i,dummy.matrix);
+    }
+    instance.current.instanceMatrix.needsUpdate = true;
+  }, []);
+  return (
+    <instancedMesh ref={instance} args={[null,null,205]}>
+      <coneGeometry args={[.032,.18,3]}/>
+      <meshStandardMaterial color="#85a56c" roughness={1} side={THREE.DoubleSide}/>
+    </instancedMesh>
   );
 }
 
@@ -123,7 +185,7 @@ const steppingStones = Array.from({ length: 9 }, (_, i) => {
   return { x: 0.4 + Math.sin(i * 0.56) * 0.17, z, s: 0.82 + (i % 3) * 0.08 };
 });
 
-function Island() {
+function Island({ progressRef }) {
   const world = useRef();
   const specks = useMemo(() => Array.from({ length: 28 }, (_, i) => ({
     x: Math.sin(i * 1.92) * (1.25 + (i % 7) * 0.29),
@@ -132,15 +194,23 @@ function Island() {
     size: 0.011 + (i % 3) * 0.007,
   })), []);
 
-  useFrame(({ clock, pointer }) => {
+  useFrame(({ clock, camera }, delta) => {
     if (!world.current) return;
     const t = clock.getElapsedTime();
-    const ry = -0.23 + Math.sin(t * 0.17) * 0.045 + pointer.x * 0.12;
-    const rx = 0.07 - pointer.y * 0.047;
-    world.current.rotation.y = THREE.MathUtils.lerp(world.current.rotation.y, ry, 0.035);
-    world.current.rotation.x = THREE.MathUtils.lerp(world.current.rotation.x, rx, 0.035);
-    world.current.position.y = Math.sin(t * 0.85) * 0.042;
+    const state = progressRef?.current ?? { progress: 0, pointerX: 0, pointerY: 0 };
+    const progress = THREE.MathUtils.clamp(state.progress, 0, 1);
+    const desiredY = -.23 + progress * Math.PI * 1.17 + state.pointerX * .13;
+    const desiredX = .065 + Math.sin(progress*Math.PI*1.9)*.095 - state.pointerY*.042;
+    const pulse = 1 + Math.sin(progress*Math.PI)*.115;
+    world.current.rotation.y = THREE.MathUtils.damp(world.current.rotation.y, desiredY, 3.2, delta);
+    world.current.rotation.x = THREE.MathUtils.damp(world.current.rotation.x, desiredX, 3.2, delta);
+    world.current.position.y = -.25 + Math.sin(t*.6)*.035;
+    const newScale = THREE.MathUtils.damp(world.current.scale.x, pulse, 2.2, delta);
+    world.current.scale.setScalar(newScale);
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, 6.9 - progress*.78, 1.7, delta);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, 4.35 - Math.sin(progress*Math.PI)*.2, 1.7, delta);
   });
+
 
   return (
     <group ref={world} rotation={[0, -0.23, 0]} position={[0, -0.25, 0]}>
@@ -157,6 +227,8 @@ function Island() {
         <meshStandardMaterial color="#b19169" roughness={0.94} />
       </mesh>
       <Pond />
+      <Meadow />
+      <GardenSwing />
       {steppingStones.map((stone, i) => (
         <mesh key={i} castShadow receiveShadow rotation={[-Math.PI / 2, 0, i * 0.14]} position={[stone.x, -0.434, stone.z]} scale={[stone.s, 1, 0.75]}>
           <circleGeometry args={[0.21, 16]} />
@@ -192,7 +264,7 @@ function Island() {
   );
 }
 
-function Scene() {
+function Scene({ progressRef }) {
   return (
     <>
       <ambientLight intensity={1.75} color="#fff4dc" />
@@ -200,14 +272,14 @@ function Scene() {
       <directionalLight castShadow position={[3.5, 8, 5]} intensity={3.2} color="#ffe7b6" shadow-mapSize-width={1024} shadow-mapSize-height={1024} shadow-camera-far={22} shadow-camera-left={-5} shadow-camera-right={5} shadow-camera-top={5} shadow-camera-bottom={-5} />
       <pointLight position={[-5, 3, -2]} intensity={1.1} color="#c3eed2" />
       <Float speed={1.0} floatIntensity={0.04} rotationIntensity={0.015}>
-        <Island />
+        <Island progressRef={progressRef} />
       </Float>
       <ContactShadows opacity={0.21} scale={9} blur={2.3} far={4.5} resolution={256} color="#1c2a1b" position={[0, -1.73, 0]} />
     </>
   );
 }
 
-export default function OrchardScene() {
+export default function OrchardScene({ progressRef }) {
   const [failed, setFailed] = useState(false);
   if (failed) return <div className="hero-3d-fallback" aria-label="Garden and nature photograph" />;
   return (
@@ -221,7 +293,7 @@ export default function OrchardScene() {
       onError={() => setFailed(true)}
       aria-label="Interactive 3D miniature of the Kumar Agro Tourism gardens"
     >
-      <Scene />
+      <Scene progressRef={progressRef} />
     </Canvas>
   );
 }
