@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
-  ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Check,
-  ChevronDown, Clock3, Instagram, Leaf, MapPin, Menu, MessageCircle,
-  MoveUpRight, Phone, Sparkles, Sun, Waves, X,
+  ArrowDown, ArrowRight, ArrowUpRight, Check,
+  Instagram, Leaf, MapPin, Menu, MessageCircle,
+  MoveUpRight, Phone, Sparkles, Sun, X,
 } from 'lucide-react';
 
-import { ScrollWorld, ScrollJourney } from './components/ScrollWorld.jsx';
 const BOOKING_PHONE = '+918390300030';
 const WHATSAPP = 'https://wa.me/918390300030?text=Hello%20Kumar%20Agro%20Tourism%2C%20I%20would%20like%20to%20plan%20a%20visit.';
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=Kumar+Agro+Tourism+Dondaicha';
@@ -46,17 +45,17 @@ function Reveal({ children, className = '', delay = 0, ...props }) {
 
 const experiences = [
   {
-    number: '01', title: 'A little adventure', subtitle: 'For the thrill-seekers',
+    number: '01', title: 'The thrill of adventure', subtitle: 'For the thrill-seekers',
     image: '/images/zipline.webp', alt: 'Visitor enjoying the zipline above the green surroundings at Kumar Agro Tourism',
     description: 'Take the scenic route to a little adrenaline, with outdoor adventure activities and sky-high smiles.',
   },
   {
-    number: '02', title: 'A splash of joy', subtitle: 'For the playful souls',
+    number: '02', title: 'A splash of freedom', subtitle: 'For the playful souls',
     image: '/images/water-play.webp', alt: 'Visitors playing in the outdoor water activity area at Kumar Agro Tourism',
     description: 'Cool off, laugh louder, and make the kind of memories that begin with one more splash.',
   },
   {
-    number: '03', title: 'Room to roam', subtitle: 'For the nature-lovers',
+    number: '03', title: 'A slower kind of joy', subtitle: 'For the nature-lovers',
     image: '/images/nature-bridge.webp', alt: 'A visitor walking across a garden bridge surrounded by greenery',
     description: 'Wander open spaces, find your favourite corner, and let the day move at its own pace.',
   },
@@ -78,21 +77,26 @@ function Header() {
   }, []);
   return (
     <header className="site-header">
+      <div className="top-note">
+        <div className="top-note-inner page-container">
+          <span>AN INVITATION TO THE GREAT OUTDOORS</span>
+          <span>DONDAICHA, MAHARASHTRA <span className="top-note-separator">&nbsp;✦&nbsp;</span> 10 AM – 6 PM</span>
+        </div>
+      </div>
       <div className="nav-shell">
         <Brand />
         <nav className={`main-nav ${menuOpen ? 'main-nav-open' : ''}`} aria-label="Main navigation">
-          <a onClick={() => setMenuOpen(false)} href="#about">Our story</a>
+          <a onClick={() => setMenuOpen(false)} href="#about">Discover</a>
           <a onClick={() => setMenuOpen(false)} href="#experiences">Experiences</a>
           <a onClick={() => setMenuOpen(false)} href="#packages">Day packages</a>
           <a onClick={() => setMenuOpen(false)} href="#gatherings">Gatherings</a>
           <a onClick={() => setMenuOpen(false)} className="mobile-only-nav" href="#contact">Contact</a>
         </nav>
         <div className="nav-right">
-          <span className="nav-location"><MapPin size={13} strokeWidth={1.8} /> Dondaicha</span>
           <a className="nav-cta" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Plan your visit <ArrowUpRight size={15} /></a>
         </div>
         <button className="mobile-menu-btn" type="button" onClick={() => setMenuOpen((o) => !o)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}>
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          {menuOpen ? <X size={23} /> : <Menu size={23} />}
         </button>
       </div>
     </header>
@@ -103,23 +107,25 @@ function Hero() {
   const reduceMotion = useReducedMotion();
   return (
     <section className="hero" id="home" aria-labelledby="hero-title">
-      <div className="hero-image" />
-      <div className="hero-shade" />
-      <div className="hero-grain" />
+      <div className="hero-image" aria-hidden="true" />
+      <div className="hero-shade" aria-hidden="true" />
+      <div className="hero-grain" aria-hidden="true" />
+      <div className="hero-frame" aria-hidden="true" />
       <div className="hero-content page-container">
-        <motion.div className="hero-copy" initial={reduceMotion ? false : { opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, ease: [0.2, 1, 0.25, 1] }}>
-          <div className="hero-eyebrow"><span className="eyebrow-dot" /> A BREATH OF FRESH AIR IN DONDAICHA</div>
-          <h1 id="hero-title">Feel more.<br />Do more.<br /><em>Live a little.</em></h1>
-          <p>Where adventure feels effortless, time slows down, and your favourite people feel a little closer.</p>
+        <motion.div className="hero-copy" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="hero-eyebrow"><span className="eyebrow-dot" /> AN EXQUISITE DAY IN THE COUNTRYSIDE</div>
+          <h1 id="hero-title">A day apart.<br /><em>A world away.</em></h1>
+          <p>Let the hours unfold beneath open skies. Nature, joyful adventures, good food and your favourite people — all in one beautiful place.</p>
           <div className="hero-buttons">
-            <a className="button button-cream" href="#immersive-journey">Explore the experience <ArrowUpRight size={18} /></a>
-            <a className="button-text-light" href="#packages">View day packages <ArrowRight size={19} /></a>
+            <a className="button button-cream" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Plan your day <ArrowUpRight size={18} /></a>
+            <a className="button-text-light" href="#experiences">Discover the experiences <ArrowRight size={18} /></a>
           </div>
         </motion.div>
+        <div className="hero-edition" aria-hidden="true"><span className="hero-edition-line" />THE KUMAR EXPERIENCE<span>DONDAICHA • INDIA</span></div>
       </div>
       <div className="hero-bottom page-container">
-        <div className="hero-footer-caption"><span className="hero-caption-icon"><Leaf size={18} /></span><span>ONE PLACE. MANY PLANS.<small>Nature &middot; Food &middot; Fun &middot; Adventure</small></span></div>
-        <a href="#immersive-journey" className="scroll-cue"><span>SCROLL TO WANDER</span><span className="scroll-circle"><ArrowDown size={17} /></span></a>
+        <div className="hero-footer-caption"><span className="hero-caption-icon">✳</span><span>ONE PLACE. MANY BEAUTIFUL MOMENTS.<small>Nature · Food · Fun · Adventure</small></span></div>
+        <a href="#about" className="scroll-cue"><span>EXPLORE THE ESTATE</span><span className="scroll-circle"><ArrowDown size={17} /></span></a>
       </div>
     </section>
   );
@@ -129,11 +135,23 @@ function IntroStrip() {
   return (
     <div className="intro-strip">
       <div className="page-container intro-grid">
-        <div className="intro-item"><span className="intro-icon"><Sun size={22} strokeWidth={1.35} /></span><div><strong>One whole day of happy</strong><span>10:00 AM - 6:00 PM</span></div></div>
-        <div className="intro-item"><span className="intro-icon"><Leaf size={22} strokeWidth={1.35} /></span><div><strong>Outdoors, uninterrupted</strong><span>Open spaces &amp; green escapes</span></div></div>
-        <div className="intro-item"><span className="intro-icon"><Sparkles size={22} strokeWidth={1.35} /></span><div><strong>Made for memories</strong><span>Families, friends &amp; groups</span></div></div>
+        <div className="intro-item"><span className="intro-icon"><Sun size={22} strokeWidth={1.35} /></span><div><strong>An unhurried day</strong><span>10:00 AM - 6:00 PM</span></div></div>
+        <div className="intro-item"><span className="intro-icon"><Leaf size={22} strokeWidth={1.35} /></span><div><strong>Nature as the backdrop</strong><span>Open spaces &amp; green escapes</span></div></div>
+        <div className="intro-item"><span className="intro-icon"><Sparkles size={22} strokeWidth={1.35} /></span><div><strong>Made to be together</strong><span>Families, friends &amp; groups</span></div></div>
       </div>
     </div>
+  );
+}
+
+function EditorialPrelude() {
+  return (
+    <section className="editorial-prelude" aria-label="The Kumar invitation">
+      <div className="page-container editorial-prelude-inner">
+        <span className="prelude-index">KUMAR AGRO TOURISM <span aria-hidden="true">✳</span> THE COUNTRYSIDE EDITION</span>
+        <p>Sometimes, <em>the greatest luxury</em> is a day that belongs entirely to you.</p>
+        <span className="prelude-rule" aria-hidden="true" />
+      </div>
+    </section>
   );
 }
 
@@ -143,15 +161,15 @@ function About() {
       <div className="about-visual">
         <Reveal className="about-photo-primary"><img src="/images/nature-walk.webp" alt="Lush, tree-lined pathway inside Kumar Agro Tourism" loading="lazy" /></Reveal>
         <Reveal className="about-photo-secondary" delay={0.17}><img src="/images/garden-swing.webp" alt="Garden swing chairs among greenery at Kumar Agro Tourism" loading="lazy" /></Reveal>
-        <div className="about-orbit-text"><span>GROW WILD. FEEL ALIVE.</span><span className="orbit-sun">&#10043;</span></div>
+        <div className="about-orbit-text"><span>THE JOY OF NATURE</span><span className="orbit-sun">&#10043;</span></div>
       </div>
       <Reveal className="about-copy">
-        <SectionLabel>WELCOME TO KUMAR</SectionLabel>
-        <h2>Some days are<br />made to be <em>felt.</em></h2>
-        <p className="lead">A simple escape from the everyday, filled with the good things: fresh air, unhurried conversations, playful adventures, and the joy of being together.</p>
-        <p>At Kumar Agro Tourism, an ordinary day out becomes a collection of little moments worth remembering. Come with your favourite people. Leave with your favourite stories.</p>
+        <SectionLabel>THE SPIRIT OF KUMAR</SectionLabel>
+        <h2>A place to<br /><em>feel alive.</em></h2>
+        <p className="lead">The most beautiful days often begin simply: fresh air, a new view, a shared laugh and the freedom to spend time together.</p>
+        <p>Welcome to Kumar Agro Tourism, a countryside day destination in Dondaicha where green landscapes meet playful adventures, easy meals and moments worth holding on to.</p>
         <a className="text-link" href="#experiences">Discover what awaits <span><ArrowUpRight size={18} /></span></a>
-        <div className="about-footnote"><span className="footnote-icon">&#10022;</span> MADE FOR THE CURIOUS, THE PLAYFUL &amp; THE YOUNG AT HEART</div>
+        <div className="about-footnote"><span className="footnote-icon">&#10022;</span> YOUR COUNTRYSIDE ESCAPE, MADE FOR SHARING</div>
       </Reveal>
     </section>
   );
@@ -164,9 +182,9 @@ function Experiences() {
         <div className="section-head experiences-head">
           <Reveal>
             <SectionLabel>THE EXPERIENCE</SectionLabel>
-            <h2>Find your kind<br />of <em>happy.</em></h2>
+            <h2>The moments<br />that <em>move you.</em></h2>
           </Reveal>
-          <Reveal delay={0.08}><p>Something for the explorers, the splash-lovers, the laid-back wanderers, and everyone in between.</p></Reveal>
+          <Reveal delay={0.08}><p>A thoughtful mix of little thrills, refreshing splashes and the quieter joys of being outdoors.</p></Reveal>
         </div>
         <div className="experience-grid">
           {experiences.map((experience, i) => (
@@ -190,8 +208,8 @@ function Quote() {
       <Reveal className="quote-inner page-container">
         <span className="quote-asterisk">&#10043;</span>
         <SectionLabel light>THE LITTLE THINGS, TOGETHER</SectionLabel>
-        <blockquote>Good days are made of<br /><em>moments like these.</em></blockquote>
-        <p>Less screen time. More sunshine. More laughter. More us.</p>
+        <blockquote>The finest things<br /><em>are felt, not rushed.</em></blockquote>
+        <p>Wide skies, good company and the pleasure of simply being here.</p>
       </Reveal>
     </section>
   );
@@ -201,8 +219,8 @@ function Moments() {
   return (
     <section className="moments-section section page-container">
       <div className="moments-head">
-        <Reveal><SectionLabel>GLIMPSES OF KUMAR</SectionLabel><h2>Happiness looks<br /><em>good on you.</em></h2></Reveal>
-        <Reveal delay={0.1}><p>Real glimpses of the experiences that make a day here feel a little different.</p></Reveal>
+        <Reveal><SectionLabel>GLIMPSES OF KUMAR</SectionLabel><h2>A closer look<br />at <em>the good life.</em></h2></Reveal>
+        <Reveal delay={0.1}><p>Photographs from the property — genuine moments of play, adventure and calm.</p></Reveal>
       </div>
       <div className="moments-grid">
         {moments.map((moment, index) => (
@@ -222,8 +240,8 @@ function Packages() {
     <section className="packages-section section" id="packages">
       <div className="page-container">
         <div className="packages-header">
-          <Reveal><SectionLabel>PLAN YOUR DAY</SectionLabel><h2>A beautiful day out.<br /><em>Thoughtfully simple.</em></h2></Reveal>
-          <Reveal delay={0.12}><p>Pick your kind of fun, bring your people, and let us take care of the good times.</p></Reveal>
+          <Reveal><SectionLabel>PLAN YOUR DAY</SectionLabel><h2>A beautiful day.<br /><em>Nothing complicated.</em></h2></Reveal>
+          <Reveal delay={0.12}><p>Thoughtful full-day packages for the young at heart and everyone who travels with them.</p></Reveal>
         </div>
         <div className="pricing-grid">
           <Reveal className="pricing-card pricing-card-kids">
@@ -264,7 +282,7 @@ function DayFlow() {
     <section className="dayflow-section section page-container" id="your-day">
       <div className="dayflow-visual"><img src="/images/arrival-courtyard.webp" alt="Welcome entrance and courtyard of Kumar Agro Tourism" loading="lazy" /><span className="dayflow-stamp">A DAY<br />WELL<br /><em>SPENT.</em></span></div>
       <div className="dayflow-copy">
-        <Reveal><SectionLabel>FROM MORNING TO MAGIC HOUR</SectionLabel><h2>Let the day<br /><em>unfold.</em></h2><p>No need to rush. No complicated plans. Just a day full of things to look forward to.</p></Reveal>
+        <Reveal><SectionLabel>FROM MORNING TO MAGIC HOUR</SectionLabel><h2>From morning<br />to <em>golden hour.</em></h2><p>No need to rush. No complicated plans. Just a day full of things to look forward to.</p></Reveal>
         <div className="timeline">
           {timeline.map((item, i) => <Reveal key={item.time} className="timeline-item" delay={i * 0.06}><span className="timeline-step">0{i + 1}</span><div className="timeline-body"><span className="timeline-time">{item.time}</span><h3>{item.label}</h3><p>{item.text}</p></div></Reveal>)}
         </div>
@@ -279,7 +297,7 @@ function Gatherings() {
       <div className="page-container gatherings-inner">
         <Reveal className="gatherings-copy">
           <SectionLabel light>BETTER, TOGETHER</SectionLabel>
-          <h2>Your people.<br />Your moments.<br /><em>Your place.</em></h2>
+          <h2>The joy of<br /><em>coming together.</em></h2>
           <p>Birthdays, school outings, family reunions, kitty parties, club meet-ups, hurda parties, and every little reason to get everyone together.</p>
           <div className="gathering-tags"><span>Family gatherings</span><span>School &amp; group trips</span><span>Birthdays</span><span>Celebrations</span></div>
           <a className="button button-cream" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Plan a group visit <ArrowUpRight size={18} /></a>
@@ -296,7 +314,7 @@ function Gatherings() {
 function ComingSoon() {
   return (
     <section className="coming-section page-container">
-      <Reveal className="coming-card"><div className="coming-emblem">&#10043;</div><div><span className="coming-label">SOMETHING BEAUTIFUL IS GROWING</span><h2>Next up: <em>Kanan Resort.</em></h2><p>Opening December 2026, with bookings beginning in November 2026.</p></div><a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Ask for updates <ArrowUpRight size={18} /></a></Reveal>
+      <Reveal className="coming-card"><div className="coming-emblem">&#10043;</div><div><span className="coming-label">SOMETHING BEAUTIFUL IS GROWING</span><h2>Next up: <em>Kanan Resort.</em></h2><p>Anticipated opening in December 2026. Contact us for the latest booking information.</p></div><a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Ask for updates <ArrowUpRight size={18} /></a></Reveal>
     </section>
   );
 }
@@ -307,8 +325,8 @@ function Contact() {
       <div className="page-container contact-inner">
         <Reveal>
           <SectionLabel light>YOUR NEXT STORY STARTS HERE</SectionLabel>
-          <h2>Let's make some<br /><em>good memories.</em></h2>
-          <p>The outdoors are waiting. Bring your favourite people and we'll see you at Kumar.</p>
+          <h2>Come for the day.<br /><em>Take it with you.</em></h2>
+          <p>Your countryside escape is closer than you think. Make plans with the people who matter.</p>
           <div className="contact-buttons"><a className="button button-cream" href={WHATSAPP} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /> Enquire on WhatsApp <ArrowUpRight size={18} /></a><a className="button button-outline" href={`tel:${BOOKING_PHONE}`}><Phone size={17} /> Call for bookings</a></div>
         </Reveal>
         <div className="contact-side"><div className="contact-side-number">+91 83903 00030</div><span><MapPin size={15} /> Dondaicha, Maharashtra</span><a href={MAPS} target="_blank" rel="noopener noreferrer">Find us on maps <ArrowUpRight size={16} /></a></div>
@@ -330,11 +348,10 @@ export default function App() {
   return (
     <>
       <Header />
-      <ScrollWorld />
       <main>
         <Hero />
-        <ScrollJourney />
         <IntroStrip />
+        <EditorialPrelude />
         <About />
         <Experiences />
         <Quote />

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Kumar Agro Tourism premium scroll-driven website with a realistic photo zipline journey.",
+  "description": "Premium, photography-led Kumar Agro Tourism landing page with elegant countryside editorial design.",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",

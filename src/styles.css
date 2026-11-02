@@ -76,18 +76,6 @@ p { line-height: 1.85; }
 .button-cream:hover { background: #e9d6b4; box-shadow: 0 16px 30px rgba(0,0,0,.14); }
 .button-text-light { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 600; color: #f6efdf; border-bottom: 1px solid #f6efdf70; padding-bottom: 7px; transition: gap .25s ease; }
 .button-text-light:hover { gap: 19px; }
-.hero-world { position: relative; margin-right: -65px; justify-self: end; width: min(650px, 100%); height: min(670px, 76vh); min-height: 535px; isolation: isolate; }
-.world-glow { position: absolute; width: 85%; aspect-ratio: 1; left: 8%; top: 5%; border-radius: 50%; background: radial-gradient(ellipse, rgba(235,230,184,.28), rgba(218,214,166,.085) 46%, transparent 68%); filter: blur(15px); }
-.world-ring { position: absolute; z-index: -1; top: 7%; left: 8%; width: 83%; height: 83%; border: 1px solid rgba(255,240,214,.18); border-radius: 50%; }
-.world-ring-two { top: 15%; left: 15%; width: 69%; height: 69%; border-color: rgba(255,240,214,.11); }
-.three-canvas { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; z-index: 1; cursor: grab; }
-.three-canvas:active { cursor: grabbing; }
-.hero-3d-fallback { position: absolute; inset: 10% 8%; border-radius: 50%; background: linear-gradient(145deg, transparent, rgba(6,29,19,.25)), url('/images/nature-bridge.webp') center / cover no-repeat; box-shadow: 0 24px 80px rgba(5,27,19,.3); }
-.world-callout { position: absolute; z-index: 3; white-space: nowrap; font-size: 11px; letter-spacing: .055em; color: #fff4dc; font-weight: 500; pointer-events: none; }
-.world-callout-top { top: 11%; right: 8%; transform: rotate(5deg); }
-.world-callout-bottom { bottom: 14%; left: 5%; transform: rotate(-4deg); }
-.callout-star { font-family: Georgia,serif; font-size: 32px; vertical-align: middle; padding-right: 4px; color: #e3c18f; }
-.little-sparkle { color: #f1c994; margin-right: 6px; font-size: 17px; }
 .hero-bottom { position: absolute; z-index: 4; left: 50%; transform: translateX(-50%); bottom: 36px; width: min(1380px, calc(100% - 112px)); display: flex; align-items: end; justify-content: space-between; }
 .hero-footer-caption { display: inline-flex; align-items: center; gap: 13px; font-size: 10px; font-weight: 700; letter-spacing: .17em; color: #fff7e8; }
 .hero-footer-caption small { font-size: 10px; font-weight: 400; letter-spacing: .03em; display: block; margin-top: 7px; color: #d6dac8; }
@@ -301,7 +289,6 @@ p { line-height: 1.85; }
   .nav-location { display: none; }
   .hero-bottom { width: calc(100% - 80px); }
   .hero h1 { font-size: clamp(4.6rem, 7vw, 7.5rem); }
-  .hero-world { margin-right: -46px; }
   .about-section { gap: 65px; }
   .dayflow-section { gap: 70px; }
   .about-visual { height: 560px; }
@@ -312,7 +299,6 @@ p { line-height: 1.85; }
   .nav-right { margin-left: 4px; }
   .nav-cta { padding: 14px; gap: 10px; }
   .hero { min-height: 650px; }
-  .hero-world { margin-right: -75px; width: 120%; }
   .hero h1 { font-size: clamp(4.5rem, 7vw, 6.6rem); }
   .about-visual { height: 505px; }
   .experience-image-wrap { height: 320px; }
@@ -336,7 +322,6 @@ p { line-height: 1.85; }
   .hero-content { grid-template-columns: 1fr; }
   .hero-copy { align-self: center; padding-bottom: 95px; }
   .hero h1 { font-size: clamp(4.5rem, 9vw, 7rem); }
-  .hero-world { position: absolute; right: -90px; top: 10%; height: 570px; width: 540px; opacity: .49; z-index: 0; pointer-events: none; }
   .hero-image { background-position: center; }
   .hero-shade { background: linear-gradient(90deg,rgba(8,33,26,.94),rgba(8,33,26,.65)); }
   .hero-eyebrow { margin-bottom: 27px; }
@@ -384,8 +369,6 @@ p { line-height: 1.85; }
   .hero-buttons { gap: 18px; }
   .hero-buttons .button { font-size: 11px; padding: 14px; min-height: 47px; gap: 12px; }
   .button-text-light { font-size: 10px; }
-  .hero-world { width: 360px; height: 400px; min-height: 0; top: 21%; right: -155px; opacity: .33; }
-  .world-callout { display: none; }
   .hero-bottom { bottom: 24px; width: calc(100% - 44px); }
   .hero-footer-caption { font-size: 8px; letter-spacing: .09em; }
   .hero-footer-caption small { font-size: 8px; }
