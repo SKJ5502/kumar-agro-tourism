@@ -314,7 +314,7 @@ function Gatherings() {
 function ComingSoon() {
   return (
     <section className="coming-section page-container">
-      <Reveal className="coming-card"><div className="coming-emblem">&#10043;</div><div><span className="coming-label">SOMETHING BEAUTIFUL IS GROWING</span><h2>Next up: <em>Kanan Resort.</em></h2><p>Anticipated opening in December 2026. Contact us for the latest booking information.</p></div><a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Ask for updates <ArrowUpRight size={18} /></a></Reveal>
+      <Reveal className="coming-card"><div className="coming-emblem">&#10043;</div><div><span className="coming-label">ANOTHER WORLD OF KUMAR</span><h2>Discover <em>Kaanan Resort.</em></h2><p>Our distinctive new destination for beautiful weddings, special celebrations and memorable stays, imagined amidst greenery in Dondaicha.</p></div><a href="/resort">Explore the resort <ArrowUpRight size={18} /></a></Reveal>
     </section>
   );
 }
