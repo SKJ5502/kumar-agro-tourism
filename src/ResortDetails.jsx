@@ -75,58 +75,92 @@ export function ResortEventPackages() {
 
 export function ResortRooms() {
   const [selected, setSelected] = useState(null);
+  const [active, setActive] = useState(0);
+  const startX = React.useRef(null);
+  const prev = () => setActive((i) => (i - 1 + roomConcepts.length) % roomConcepts.length);
+  const next = () => setActive((i) => (i + 1) % roomConcepts.length);
+  const touchEnd = (event) => {
+    if (startX.current === null) return;
+    const endX = event.changedTouches[0]?.clientX;
+    if (typeof endX === 'number') {
+      const moved = startX.current - endX;
+      if (moved > 45) next();
+      if (moved < -45) prev();
+    }
+    startX.current = null;
+  };
 
   useEffect(() => {
     if (selected === null) return undefined;
     const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') setSelected(null);
-      if (event.key === 'ArrowRight') setSelected((index) => (index + 1) % roomConcepts.length);
-      if (event.key === 'ArrowLeft') setSelected((index) => (index - 1 + roomConcepts.length) % roomConcepts.length);
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [selected]);
-
-  const renderRoom = (room, index, type) => (
-    <figure className={'kr-editorial-room kr-editorial-room-' + type} key={room.src}>
-      <button type="button" className="kr-editorial-room-photo"
-        onClick={() => setSelected(index)} aria-label={'Enlarge '+room.caption+' room visualisation'}>
-        <img src={room.src} alt={room.alt} loading="lazy" decoding="async" />
-        <span className="kr-editorial-room-expand"><Maximize2 size={17} strokeWidth={1.45}/><span>VIEW IMAGE</span></span>
-      </button>
-      <figcaption className="kr-editorial-room-caption">
-        <div><span className="kr-editorial-room-index">{String(index+1).padStart(2,'0')} / 05</span><h3>{room.caption}</h3></div>
-        <p>{room.detail}</p>
-      </figcaption>
-    </figure>
-  );
-
+    document.body.
+  const current = roomConcepts[active];
   return <section className="kr-rooms kr-rooms-premium" id="rooms" aria-labelledby="kr-rooms-title">
     <div className="kr-wrap">
       <div className="kr-rooms-premium-head">
         <div><span className="kr-eyebrow"><span/> THE STAY EXPERIENCE</span>
           <h2 id="kr-rooms-title">A slower kind<br/>of <em>luxury.</em></h2>
         </div>
-        <div className="kr-rooms-premium-intro"><p>For wedding guests, family gatherings and quiet escapes. Discover the calming warmth and thoughtful finishes imagined for a stay at Kaanan.</p>
+        <div className="kr-rooms-premium-intro">
+          <p>For wedding guests, family gatherings and quiet escapes. Discover the calming warmth and thoughtful finishes imagined for a stay at Kaanan.</p>
           <a href={enquire('rooms, family stays and wedding guest accommodation')} target="_blank" rel="noopener noreferrer">Discuss your stay <ArrowUpRight size={18}/></a>
         </div>
       </div>
 
-      <div className="kr-rooms-gallery-primary" aria-label="Featured room design visualisations">
-        {renderRoom(roomConcepts[0],0,'lead')}
-        {renderRoom(roomConcepts[1],1,'portrait')}
-      </div>
-      <div className="kr-rooms-gallery-divider"><span>THE ROOM, FROM EVERY ANGLE</span><span className="kr-rooms-gallery-divider-rule"/><span>03 — 05</span></div>
-      <div className="kr-rooms-gallery-secondary" aria-label="Additional room design perspectives">
-        {roomConcepts.slice(2).map((room,i) => renderRoom(room,i+2,i===2?'landscape':'detail'))}
+      <div className="kr-single-slider" role="region" aria-roledescription="carousel" aria-label="Kaanan room design visualisations">
+        <div className="kr-single-stage"
+          tabIndex={0}
+          aria-label="Use left or right arrow keys or swipe to browse room renders"
+          onKeyDown={(event) => {
+            if(event.key === 'ArrowRight') {event.preventDefault();next();}
+            if(event.key === 'ArrowLeft') {event.preventDefault();prev();}
+          }}
+          onTouchStart={(event) => { startX.current = event.changedTouches[0]?.clientX ?? null; }}
+          onTouchEnd={touchEnd}
+          onTouchCancel={() => {startX.current = null;}}>
+          <div className="kr-single-track" style={{transform:'translate3d(-' + (active * 100) + '%,0,0)'}}>
+            {roomConcepts.map((room,index) => <div className="kr-single-slide" key={room.src}
+              role="group" aria-roledescription="slide"
+              aria-label={(index+1) + ' of ' + roomConcepts.length + ': ' + room.caption}
+              aria-hidden={index !== active}>
+              <img className="kr-single-haze" src={room.src} alt="" aria-hidden="true" loading={index === 0 ? 'eager' : 'lazy'} decoding="async"/>
+              <img className="kr-single-image" src={room.src} alt={index === active ? room.alt : ''} loading={index === 0 ? 'eager' : 'lazy'} decoding="async"/>
+            </div>)}
+          </div>
+          <div className="kr-single-overline" aria-hidden="true"><span>KAANAN · THE ROOM COLLECTION</span><span>DESIGN CONCEPTS</span></div>
+          <button className="kr-single-expand" type="button" onClick={() => setSelected(active)}><Maximize2 size={17} strokeWidth={1.45}/> View full render</button>
+        </div>
+        <div className="kr-single-meta">
+          <div className="kr-single-meta-copy" aria-live="polite" aria-atomic="true">
+            <span className="kr-single-label">{current.label}</span>
+            <h3>{current.caption}</h3>
+            <p>{current.detail}</p>
+          </div>
+          <div className="kr-single-nav">
+            <span className="kr-single-count" aria-label={'Image ' + (active+1) + ' of ' + roomConcepts.length}>{String(active+1).padStart(2,'0')} <small>/ 05</small></span>
+            <div className="kr-single-buttons">
+              <button type="button" onClick={prev} aria-label="Previous room render"><ArrowLeft size={20}/></button>
+              <button type="button" onClick={next} aria-label="Next room render"><ArrowRight size={20}/></button>
+            </div>
+          </div>
+        </div>
+        <div className="kr-single-progress" aria-label="Choose a room render">
+          {roomConcepts.map((room,index) => <button type="button" key={room.src}
+            className={index === active ? 'is-active' : ''}
+            aria-current={index === active ? 'true' : undefined}
+            aria-label={'Show room render ' + (index+1) + ': ' + room.caption}
+            onClick={() => setActive(index)}><span><i/></span></button>)}
+        </div>
       </div>
 
       <div className="kr-rooms-premium-foot">
+        <div className="kr-rooms-note-heading"><BedDouble size={22} strokeWidth={1.35}/><span>ROOMS & GUEST STAYS</span></div>
+        <p>Artist-enhanced architectural design visualisations, not photographs of completed rooms. Room categories, final furnishings, amenities and availability are subject to confirmation with the resort team.</p>
+        <a href={enquire('available room options, dates and room rates')} target="_blank" rel="noopener noreferrer">Enquire for availability <ArrowUpRight size={17}/></a>
+      </div>
+    </div>
+
+t">
         <div className="kr-rooms-note-heading"><BedDouble size={22} strokeWidth={1.35}/><span>ROOMS & GUEST STAYS</span></div>
         <p>Artist-enhanced architectural design visualisations, not photographs of completed rooms. Room categories, final furnishings, amenities and availability are subject to confirmation with the resort team.</p>
         <a href={enquire('available room options, dates and room rates')} target="_blank" rel="noopener noreferrer">Enquire for availability <ArrowUpRight size={17}/></a>
