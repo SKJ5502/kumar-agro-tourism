@@ -93,7 +93,19 @@ export function ResortRooms() {
   useEffect(() => {
     if (selected === null) return undefined;
     const originalOverflow = document.body.style.overflow;
-    document.body.
+    document.body.style.overflow = 'hidden';
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setSelected(null);
+      if (event.key === 'ArrowRight') setSelected((index) => (index + 1) % roomConcepts.length);
+      if (event.key === 'ArrowLeft') setSelected((index) => (index - 1 + roomConcepts.length) % roomConcepts.length);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [selected]);
+
   const current = roomConcepts[active];
   return <section className="kr-rooms kr-rooms-premium" id="rooms" aria-labelledby="kr-rooms-title">
     <div className="kr-wrap">
