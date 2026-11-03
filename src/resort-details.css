@@ -1,0 +1,78 @@
+/* KAANAN EDITORIAL: Indian wedding rituals, curated enquiries, and room concepts */
+.kr-wrap{width:min(1380px,calc(100% - 112px));margin:0 auto}
+.kr-eyebrow{font:700 10px/1.5 'DM Sans',sans-serif;letter-spacing:.18em;color:#867d78;display:inline-flex;align-items:center;gap:15px}
+.kr-eyebrow>span{width:35px;height:1px;background:#b99e75;display:block}
+.kr-ceremonies,.kr-packages,.kr-rooms{padding:clamp(96px,10vw,155px) 0}
+.kr-section-intro{text-align:center;margin:0 auto 58px;max-width:910px}
+.kr-section-intro .kr-eyebrow{justify-content:center}
+.kr-section-intro h2,.kr-packages-top h2,.kr-rooms-head h2{font:500 clamp(4.7rem,7vw,9rem)/.92 'Cormorant Garamond',Georgia,serif;color:#1d305b;letter-spacing:-.055em;margin:24px 0 25px}
+.kr-section-intro h2 em,.kr-packages-top h2 em,.kr-rooms-head h2 em{color:#a78a93;font-weight:400}
+.kr-section-intro p,.kr-packages-top>p,.kr-rooms-head-copy>p{font-size:14px;line-height:1.95;color:#697386;max-width:550px}
+.kr-section-intro p{margin:0 auto}
+.kr-ceremonies{background:#f9f7f0;position:relative}
+.kr-ceremonies:before{content:'✳';position:absolute;left:5%;top:100px;font:160px/1 'Cormorant Garamond',serif;color:#e9e1d2;pointer-events:none}
+.kr-ritual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#dedbd4;border:1px solid #dedbd4}
+.kr-ritual{padding:39px 37px 31px;background:#fdfbf7;min-height:318px;display:flex;flex-direction:column;transition:background .3s}
+.kr-ritual:hover{background:#eee8de}
+.kr-ritual-number{display:flex;justify-content:space-between;color:#b5a9a3;font:700 10px 'DM Sans',sans-serif;letter-spacing:.14em;margin-bottom:40px}
+.kr-ritual-number span:last-child{font-size:26px;line-height:1;color:#c7b49c;font-weight:400}
+.kr-ritual-tag{font:700 9px 'DM Sans',sans-serif;letter-spacing:.18em;color:#a68e84}
+.kr-ritual h3{font:500 clamp(2.7rem,3vw,4.2rem)/.96 'Cormorant Garamond',Georgia,serif;color:#1f335c;letter-spacing:-.045em;margin:15px 0 15px}
+.kr-ritual>p{font-size:11px;line-height:1.7;color:#7d8490;margin:0 0 20px;max-width:280px}
+.kr-ritual>a{margin-top:auto;text-decoration:none;border-top:1px solid #e2ded8;padding-top:18px;display:flex;justify-content:space-between;align-items:center;gap:10px;font:700 10px 'DM Sans',sans-serif;color:#42557b}
+.kr-ceremony-footnote{font-size:11px;line-height:1.8;color:#81889a;text-align:center;margin:27px auto 0;max-width:780px}
+.kr-packages{background:#182b52;color:#faf5e8}
+.kr-packages .kr-eyebrow{color:#d5c9af}
+.kr-packages-top{display:grid;grid-template-columns:1.4fr .6fr;align-items:end;gap:85px;margin-bottom:55px}
+.kr-packages-top h2{color:#f7f0e0;margin-bottom:0;font-size:clamp(4.6rem,6.6vw,8.25rem)}
+.kr-packages-top h2 em{color:#dfbc91}
+.kr-packages-top>p{color:#cbd4df;margin:0 0 8px}
+.kr-package-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.kr-package-card{min-height:463px;padding:35px 27px 28px;display:flex;flex-direction:column;background:#f8f4ea;color:#1d325b}
+.kr-package-heritage{background:#f3e6d9}.kr-package-saffron{background:#e4c6ac}.kr-package-navy{background:#d8e0eb}.kr-package-sage{background:#e1e9df}
+.kr-package-number{display:flex;justify-content:space-between;align-items:center;font:700 10px 'DM Sans',sans-serif;color:#7d8491;letter-spacing:.12em;margin-bottom:45px}
+.kr-package-type{font:700 9px/1.4 'DM Sans',sans-serif;letter-spacing:.14em;color:#7c7881;min-height:22px}
+.kr-package-card h3{font:500 clamp(2.8rem,3.1vw,4.4rem)/.94 'Cormorant Garamond',Georgia,serif;letter-spacing:-.045em;margin:11px 0 24px;color:#20375f}
+.kr-package-card ul{list-style:none;padding:0;margin:0 0 30px;display:flex;flex-direction:column;gap:12px}
+.kr-package-card li{display:flex;gap:9px;font:400 11px/1.55 'DM Sans',sans-serif;color:#5d6573}
+.kr-package-card li svg{flex-shrink:0;color:#7e7f6b;margin-top:1px}
+.kr-package-card>a{margin-top:auto;padding-top:18px;border-top:1px solid #c3c4c5;display:flex;align-items:center;justify-content:space-between;gap:6px;text-decoration:none;color:#223b61;font-size:11px;font-weight:700}
+.kr-pricing-note{display:flex;gap:18px;align-items:center;border:1px solid #687996;padding:25px 30px;margin-top:27px;color:#e6d4b6}
+.kr-pricing-note p{flex:1;color:#cbd1de;font-size:11px;line-height:1.7;margin:0}
+.kr-pricing-note a{display:flex;align-items:center;gap:10px;text-decoration:none;color:#f3dfbc;font-size:11px;font-weight:700;white-space:nowrap}
+.kr-rooms{background:#f4f0e8}
+.kr-rooms-head{display:grid;grid-template-columns:1.3fr .7fr;gap:65px;align-items:end;margin-bottom:55px}
+.kr-rooms-head h2{margin-bottom:0}
+.kr-rooms-head-copy>p{margin-bottom:22px}
+.kr-rooms-head-copy a{display:inline-flex;gap:15px;align-items:center;text-decoration:none;color:#2b4265;border-bottom:1px solid #b89e73;padding-bottom:10px;font-size:11px;font-weight:700}
+.kr-rooms-showcase{display:grid;grid-template-columns:minmax(0,1fr) 156px;gap:17px}
+.kr-room-main{height:clamp(420px,51vw,700px);position:relative;overflow:hidden;background:#baae9f}
+.kr-room-main>img{width:100%;height:100%;object-fit:cover;object-position:center 44%;animation:kr-image-in .5s ease both}
+@keyframes kr-image-in{from{opacity:.5;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+.kr-room-main:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,20,31,.62),transparent 45%);pointer-events:none}
+.kr-room-main-overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:36px 40px;pointer-events:none;color:#fffaf1}
+.kr-room-main-overlay>span{font:700 10px 'DM Sans',sans-serif;letter-spacing:.13em;display:flex;gap:25px;justify-content:space-between}
+.kr-room-main-overlay h3{font:500 clamp(3.8rem,5vw,7rem)/.93 'Cormorant Garamond',Georgia,serif;letter-spacing:-.04em;color:#fffaf1;margin:0 0 7px}
+.kr-room-main-overlay p{font:400 12px 'DM Sans',sans-serif;color:#ece4d8}
+.kr-room-controls{position:absolute;z-index:4;right:35px;bottom:32px;display:flex;gap:7px}
+.kr-room-controls button{width:52px;height:52px;background:rgba(252,249,241,.91);border:0;color:#1d3257;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.kr-room-controls button:hover,.kr-room-controls button:focus-visible{background:white;outline:2px solid #ac946f}
+.kr-room-thumbs{display:grid;grid-template-rows:repeat(5,1fr);gap:9px;min-height:0}
+.kr-room-thumb{min-height:0;position:relative;padding:0;border:2px solid transparent;cursor:pointer;background:#d5c9ba;overflow:hidden}
+.kr-room-thumb.is-current{border-color:#294b72}
+.kr-room-thumb img{width:100%;height:100%;object-fit:cover;filter:saturate(.8);transition:transform .4s}
+.kr-room-thumb:hover img,.kr-room-thumb.is-current img{transform:scale(1.06);filter:saturate(1)}
+.kr-room-thumb span{position:absolute;right:6px;bottom:5px;background:rgba(255,255,255,.9);padding:4px 6px;color:#223b60;font:700 9px 'DM Sans',sans-serif}
+.kr-room-bottom{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;margin-top:24px}
+.kr-room-bottom>span{display:flex;align-items:center;gap:12px;color:#344c67;font:700 11px 'DM Sans',sans-serif}
+.kr-room-bottom>p{font-size:11px;line-height:1.75;color:#787f8b;margin:0}
+@media(max-width:1250px){.kr-wrap{width:calc(100% - 76px)}.kr-package-grid{grid-template-columns:repeat(2,1fr)}.kr-package-card{min-height:390px}.kr-packages-top{gap:35px}}
+@media(max-width:850px){.kr-wrap{width:calc(100% - 50px)}.kr-ritual-grid{grid-template-columns:repeat(2,1fr)}.kr-packages-top,.kr-rooms-head{grid-template-columns:1fr;gap:20px}.kr-packages-top>p{max-width:600px}.kr-rooms-showcase{grid-template-columns:1fr}.kr-room-thumbs{grid-template-columns:repeat(5,1fr);grid-template-rows:none;height:90px}.kr-room-main{height:550px}.kr-room-bottom{grid-template-columns:1fr}}
+@media(max-width:550px){.kr-ceremonies,.kr-packages,.kr-rooms{padding:86px 0}.kr-wrap{width:calc(100% - 38px)}.kr-section-intro h2,.kr-packages-top h2,.kr-rooms-head h2{font-size:clamp(4.2rem,13vw,6.4rem)}.kr-ritual-grid{grid-template-columns:1fr}.kr-ritual{min-height:260px;padding:27px 26px}.kr-ritual-number{margin-bottom:28px}.kr-ritual h3{font-size:3.5rem}.kr-package-grid{grid-template-columns:1fr}.kr-package-card{min-height:370px}.kr-pricing-note{flex-direction:column;align-items:flex-start;padding:22px}.kr-pricing-note a{white-space:normal}.kr-room-main{height:435px}.kr-room-main-overlay{padding:24px}.kr-room-main-overlay h3{font-size:3.6rem}.kr-room-controls{right:15px;bottom:18px}.kr-room-controls button{width:40px;height:40px}.kr-room-thumbs{height:66px;gap:5px}.kr-room-bottom{margin-top:20px}}
+@media(prefers-reduced-motion:reduce){.kr-room-main>img,.kr-room-thumb img{animation:none;transition:none}}
+/* The provided Kaanan brand artwork, translated from its PDF logo. */
+.k-brand .k-logo-mark{display:block;width:39px;height:59px;object-fit:contain}
+.k-mark-large .k-logo-mark{width:76px;height:114px}
+.k-nav{gap:clamp(13px,2vw,26px)}
+@media(max-width:760px){.k-brand .k-logo-mark{width:34px;height:51px}}
+@media(max-width:500px){.k-brand .k-logo-mark{width:28px;height:42px}}

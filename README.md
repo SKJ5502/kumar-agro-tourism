@@ -38,3 +38,12 @@ All property photographs come from the provided business brochure. Do not replac
 - No resort booking launch date is displayed; contact the resort team for current availability.
 
 Both experiences share the existing Cloudflare Pages project and do not use another hosting account, database, or paid service.
+
+## New content and visual assets (November 2026)
+
+- Agro Tourism includes water play, rain dance, rope & nature bridge activities, swings & play zones, garden visits and tractor ride with admission. **Only zipline and sky cycling are separately paid add-ons**. Confirm activity operating conditions and pricing on booking.
+- Group enquiries: school/college, corporate/business, birthdays, family, clubs, associations and Hurda gatherings.
+- Indian shaadi celebrations at Kaanan: Roka/Engagement, Mehendi, Haldi, Sangeet, Shaadi/Pheras and Reception.
+- Resort package enquiries: complete weddings, individual functions, conferences and corporate events, guest-room/group stays. Rates are bespoke, with no invented fixed prices.
+- The five room images are supplied design visualisations, not proof of completed or currently available rooms.
+- Official Kumar Agro Tourism and Kaanan logo artwork has been incorporated.

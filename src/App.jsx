@@ -5,6 +5,7 @@ import {
   Instagram, Leaf, MapPin, Menu, MessageCircle,
   MoveUpRight, Phone, Sparkles, Sun, X,
 } from 'lucide-react';
+import { IncludedActivities, GroupExperiences } from './AgroDetails.jsx';
 
 const BOOKING_PHONE = '+918390300030';
 const WHATSAPP = 'https://wa.me/918390300030?text=Hello%20Kumar%20Agro%20Tourism%2C%20I%20would%20like%20to%20plan%20a%20visit.';
@@ -13,12 +14,8 @@ const INSTAGRAM = 'https://www.instagram.com/kumar.agro.tourism/';
 
 function Brand({ light = false }) {
   return (
-    <a className={`brand ${light ? 'brand-light' : ''}`} href="#home" aria-label="Kumar Agro Tourism - home">
-      <span className="brand-mark" aria-hidden="true"><img src="/images/kumar-emblem.png" alt="" /></span>
-      <span className="brand-words">
-        <span className="brand-name">kumar<span className="brand-dot">.</span></span>
-        <span className="brand-subtitle">AGRO TOURISM</span>
-      </span>
+    <a className={'brand' + (light ? ' brand-light' : '')} href="#home" aria-label="Kumar Agro Tourism home">
+      <img className="agro-official-logo" src="/images/kumar-logo-official.webp" alt="Kumar Agro Tourism" />
     </a>
   );
 }
@@ -47,7 +44,7 @@ const experiences = [
   {
     number: '01', title: 'The thrill of adventure', subtitle: 'For the thrill-seekers',
     image: '/images/zipline.webp', alt: 'Visitor enjoying the zipline above the green surroundings at Kumar Agro Tourism',
-    description: 'Take the scenic route to a little adrenaline, with outdoor adventure activities and sky-high smiles.',
+    description: 'For a little extra adventure, zipline and sky cycling are available as separately paid rides.',
   },
   {
     number: '02', title: 'A splash of freedom', subtitle: 'For the playful souls',
@@ -87,9 +84,9 @@ function Header() {
         <Brand />
         <nav className={`main-nav ${menuOpen ? 'main-nav-open' : ''}`} aria-label="Main navigation">
           <a onClick={() => setMenuOpen(false)} href="#about">Discover</a>
-          <a onClick={() => setMenuOpen(false)} href="#experiences">Experiences</a>
+          <a onClick={() => setMenuOpen(false)} href="#included-activities">Activities</a>
           <a onClick={() => setMenuOpen(false)} href="#packages">Day packages</a>
-          <a onClick={() => setMenuOpen(false)} href="#gatherings">Gatherings</a>
+          <a onClick={() => setMenuOpen(false)} href="#group-plans">Group outings</a>
           <a onClick={() => setMenuOpen(false)} className="mobile-only-nav" href="#contact">Contact</a>
         </nav>
         <div className="nav-right">
@@ -250,7 +247,7 @@ function Packages() {
             <p className="pricing-descriptor">The biggest smiles come in the smallest sizes.</p>
             <div className="price"><sup>&#8377;</sup>650 <span>/ person</span></div>
             <div className="pricing-divider" />
-            <ul><li><Check size={16} /> For ages 4 to 14 years</li><li><Check size={16} /> Ages 3 and below enter free</li><li><Check size={16} /> Outdoor games &amp; experiences</li></ul>
+            <ul><li><Check size={16} /> For ages 4 to 14 years</li><li><Check size={16} /> Ages 3 and below enter free</li><li><Check size={16} /> Water, rope, garden &amp; play activities included</li><li><Check size={16} /> Zipline and sky cycling are paid add-ons</li></ul>
             <a className="pricing-link" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Enquire about this package <ArrowUpRight size={18} /></a>
           </Reveal>
           <Reveal className="pricing-card pricing-card-adult" delay={0.12}>
@@ -259,13 +256,13 @@ function Packages() {
             <p className="pricing-descriptor">Everything you need for a memory-filled escape.</p>
             <div className="price"><sup>&#8377;</sup>850 <span>/ person</span></div>
             <div className="pricing-divider" />
-            <ul><li><Check size={16} /> For visitors above 14 years</li><li><Check size={16} /> Breakfast, lunch &amp; high tea</li><li><Check size={16} /> Full-day visit: 10 AM - 6 PM</li></ul>
+            <ul><li><Check size={16} /> For visitors above 14 years</li><li><Check size={16} /> Breakfast, lunch &amp; high tea</li><li><Check size={16} /> Full-day visit: 10 AM - 6 PM</li><li><Check size={16} /> Listed activities included with ticket</li><li><Check size={16} /> Zipline and sky cycling charged separately</li></ul>
             <a className="pricing-link" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Book your day out <ArrowUpRight size={18} /></a>
             <span className="pricing-decoration">&#10043;</span>
           </Reveal>
         </div>
         <Reveal className="package-bottom-note"><span className="note-star">&#10022;</span><p>Planning a school trip or group outing? <strong>Special packages and group discounts are available.</strong></p><a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Let's plan it <ArrowRight size={17} /></a></Reveal>
-        <p className="price-note">Prices and inclusions are based on the provided brochure. Please confirm current availability and package details before booking.</p>
+        <p className="price-note">Tickets include the water games, rain dance, rope activities, swings, gardens, play areas and tractor ride listed above. Only zipline and sky cycling have additional ride charges. Confirm current pricing, operating conditions and availability before visiting.</p>
       </div>
     </section>
   );
@@ -298,8 +295,8 @@ function Gatherings() {
         <Reveal className="gatherings-copy">
           <SectionLabel light>BETTER, TOGETHER</SectionLabel>
           <h2>The joy of<br /><em>coming together.</em></h2>
-          <p>Birthdays, school outings, family reunions, kitty parties, club meet-ups, hurda parties, and every little reason to get everyone together.</p>
-          <div className="gathering-tags"><span>Family gatherings</span><span>School &amp; group trips</span><span>Birthdays</span><span>Celebrations</span></div>
+          <p>School and college trips, corporate team outings, company get-togethers, business groups, birthdays, family reunions, kitty parties, medical associations, clubs, Hurda gatherings and every reason to come together.</p>
+          <div className="gathering-tags"><span>School &amp; college trips</span><span>Corporate outings</span><span>Business groups</span><span>Family celebrations</span></div>
           <a className="button button-cream" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Plan a group visit <ArrowUpRight size={18} /></a>
         </Reveal>
         <Reveal className="gatherings-visual" delay={0.15}>
@@ -354,11 +351,13 @@ export default function App() {
         <EditorialPrelude />
         <About />
         <Experiences />
+        <IncludedActivities />
         <Quote />
         <Moments />
         <Packages />
         <DayFlow />
         <Gatherings />
+        <GroupExperiences />
         <ComingSoon />
         <Contact />
       </main>

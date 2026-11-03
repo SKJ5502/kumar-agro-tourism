@@ -5,6 +5,7 @@ import {
   Flower2, Gamepad2, Landmark, MapPin, Menu, MessageCircle,
   Mountain, Phone, Sparkles, Sun, Trees, Users, Waves, X,
 } from 'lucide-react';
+import { IndianWeddingFunctions, ResortEventPackages, ResortRooms } from './ResortDetails.jsx';
 
 const PHONE = '+919309555833';
 const WHATSAPP = 'https://wa.me/919309555833?text=' + encodeURIComponent('Hello Kaanan by KS Resort, I would like to enquire about hosting a celebration at your resort.');
@@ -17,15 +18,13 @@ function Reveal({ children, className = '', delay = 0 }) {
     transition={{ duration: reduced ? 0 : 0.8, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>;
 }
 
-function KaananMark({ size = 46 }) {
-  return <svg width={size} height={size * 1.17} viewBox="0 0 66 78" fill="none" aria-hidden="true">
-    <path d="M4 75V33C4 17 17 4 33 4s29 13 29 29v42H4Z" stroke="currentColor" strokeWidth="1.4"/>
-    <circle cx="35" cy="34" r="9" stroke="currentColor" strokeWidth="1.1"/>
-    <path d="M5 52 18 39l10 8 11-8 22 20M5 62l18-11 9 6 11-7 18 14M6 69l12-5 8 6 13-6 7 5 14-5" stroke="currentColor" strokeWidth="1"/>
-    <path d="m8 74 7-10m-1 10 7-8m34 8-9-8m14 8-6-8" stroke="currentColor" strokeWidth="1"/>
-    <path d="m22 24 3 1 3-1m13-3 3 1 3-1" stroke="currentColor" strokeLinecap="round" strokeWidth=".8"/>
-  </svg>;
+function KaananMark({ size = 46, light = false }) {
+  return <img className="k-logo-mark"
+    src={light ? '/images/kaanan-mark-official.webp' : '/images/kaanan-mark-ink.webp'}
+    style={{ width: size, height: 'auto' }}
+    alt="" aria-hidden="true" />;
 }
+
 function Brand({ light = false }) {
   return <a className={'k-brand'+(light?' k-brand-light':'')} href="#resort-top" aria-label="Kaanan by KS Resort home">
     <KaananMark size={39}/><span className="k-brand-words"><strong>kaanan</strong><small>BY KS RESORT</small></span>
@@ -48,8 +47,9 @@ function ResortHeader() {
       <Brand/>
       <nav className={'k-nav'+(open?' k-nav-open':'')} aria-label="Kaanan navigation">
         <a onClick={()=>setOpen(false)} href="#estate">The estate</a>
-        <a onClick={()=>setOpen(false)} href="#celebrations">Celebrations</a>
-        <a onClick={()=>setOpen(false)} href="#amenities">Experiences</a>
+        <a onClick={()=>setOpen(false)} href="#wedding-functions">Shaadi</a>
+        <a onClick={()=>setOpen(false)} href="#resort-packages">Packages</a>
+        <a onClick={()=>setOpen(false)} href="#rooms">Rooms</a>
         <a onClick={()=>setOpen(false)} href="#resort-contact">Contact</a>
       </nav>
       <a className="k-header-cta" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Make an enquiry <ArrowUpRight size={17}/></a>
@@ -69,7 +69,7 @@ function ResortHero() {
       <motion.div className="k-hero-copy" initial={reduced?false:{opacity:0,y:28}} animate={{opacity:1,y:0}} transition={{duration:1,ease:[.22,1,.36,1]}}>
         <Tag light>THE ART OF BEAUTIFUL BEGINNINGS</Tag>
         <h1 id="kaanan-title">Where forever<br/>begins <em>beautifully.</em></h1>
-        <p>Where grand celebrations meet thoughtful elegance. A remarkable new setting for stories worth telling, surrounded by greenery in Dondaicha.</p>
+        <p>Where grand celebrations meet thoughtful elegance. A remarkable setting for Indian weddings, celebrations, business gatherings and considered stays — surrounded by greenery in Dondaicha.</p>
         <div className="k-hero-actions">
           <a className="k-button k-button-gold" href={WHATSAPP} target="_blank" rel="noopener noreferrer">Enquire for your occasion <ArrowUpRight size={19}/></a>
           <a className="k-text-link k-text-link-light" href="#estate">Discover Kaanan <ArrowRight size={19}/></a>
@@ -158,7 +158,7 @@ function EstateGallery() {
 function ResortContact() {
   return <section className="k-contact" id="resort-contact"><div className="k-contact-glow" aria-hidden="true"/>
     <div className="k-section-wrap k-contact-inner"><Reveal>
-      <div className="k-mark-large"><KaananMark size={76}/></div>
+      <div className="k-mark-large"><KaananMark size={76} light/></div>
       <Tag light>LET'S CREATE SOMETHING BEAUTIFUL</Tag>
       <h2>Every great story<br/>begins <em>somewhere.</em></h2>
       <p>Tell us about your celebration, event, or occasion. Our team would be delighted to share more about the Kaanan vision and current availability.</p>
@@ -176,5 +176,5 @@ function ResortFooter() {
 }
 
 export default function ResortPage() {
-  return <div className="kaanan-page"><ResortHeader/><main><ResortHero/><EstateIntro/><CelebrationSpaces/><Amenities/><EstateGallery/><ResortContact/></main><ResortFooter/></div>;
+  return <div className="kaanan-page"><ResortHeader/><main><ResortHero/><EstateIntro/><CelebrationSpaces/><IndianWeddingFunctions/><ResortEventPackages/><Amenities/><ResortRooms/><EstateGallery/><ResortContact/></main><ResortFooter/></div>;
 }
