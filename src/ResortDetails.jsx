@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, BedDouble, CalendarDays, Check, Flower2, Heart, Landmark, Mail, MessageCircle, Presentation, Sparkles, Users, Video } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, BedDouble, CalendarDays, Check, Flower2, Heart, Landmark, Mail, MessageCircle, Presentation, Sparkles, Users, Video, Maximize2, X } from 'lucide-react';
 
 const WAPP = '919309555833';
 const enquire = (topic) => `https://wa.me/${WAPP}?text=${encodeURIComponent(`Hello Kaanan by KS Resort, I would like to enquire about ${topic}. Please share a custom quotation, available dates and event / stay options.`)}`;
@@ -20,12 +20,14 @@ const packages = [
   {number:'04',title:'The Stay Edit',type:'ROOMS & GROUP STAYS',accent:'sage',icon:BedDouble,items:['Room and overnight-stay enquiries','Wedding guest room blocks','Family and group accommodation','Custom dates and room requirements'],query:'room reservations, family stays or a group room block'},
 ];
 
+// Curated, artist-enhanced visualisations based on the architectural room references.
+// These are design concepts, not photographs of an operating guest-room inventory.
 const roomConcepts = [
-  {src:'/images/kaanan-room-01.avif',alt:'Kaanan guest-room interior design visualisation showing twin beds, wood panelling and a television console',caption:'THE WARM WELCOME',detail:'A calm material palette'},
-  {src:'/images/kaanan-room-02.avif',alt:'Kaanan room concept with upholstered seating, floor-to-ceiling drapery and twin beds',caption:'THE QUIET CORNER',detail:'Soft light and thoughtful spaces'},
-  {src:'/images/kaanan-room-03.avif',alt:'Interior visualisation of twin-bed accommodation with warm timber finishes and elegant neutral bedding',caption:'THE ROOM EXPERIENCE',detail:'Rest in understated elegance'},
-  {src:'/images/kaanan-room-04.avif',alt:'Detail view of proposed resort room storage, natural wood finishes and entertainment area',caption:'THE DETAILS',detail:'Designed around your comfort'},
-  {src:'/images/kaanan-room-05.avif',alt:'Sunlit room interior concept with two beds, lounge seating and large windows',caption:'A LIGHTER STAY',detail:'Room to make memories'},
+  {src:'/images/kaanan-room-premium-01.avif',alt:'Luxury guest-room concept showing two neatly made beds, warm oak panelling, a floating console and a Kaanan welcome display',caption:'The Warm Welcome',detail:'Calm textures, considered details',label:'AN INVITATION TO UNWIND'},
+  {src:'/images/kaanan-room-premium-02.avif',alt:'Moody evening room visualisation with twin beds, softly lit window seating and a quiet dining nook',caption:'The Evening Retreat',detail:'Quiet moments after the celebration',label:'THE ART OF UNWINDING'},
+  {src:'/images/kaanan-room-premium-03.avif',alt:'Refined twin-bed room interior visualisation with upholstered olive headboards and layered warm neutral bedding',caption:'Rest, Reimagined',detail:'A little more room to rest',label:'REST IN YOUR OWN RHYTHM'},
+  {src:'/images/kaanan-room-premium-04.avif',alt:'Interior design visualisation featuring a wood feature wall, bespoke wardrobe, floating console and Kaanan welcome television',caption:'The Little Details',detail:'Thoughtful touches at every turn',label:'REFINED BY DESIGN'},
+  {src:'/images/kaanan-room-premium-05.avif',alt:'Bright Kaanan room concept with twin beds, expansive windows, greenery and comfortable window-side seating',caption:'A Room with Light',detail:'A gentle start to the day',label:'WHERE LIGHT FEELS DIFFERENT'},
 ];
 
 export function IndianWeddingFunctions() {
@@ -72,29 +74,74 @@ export function ResortEventPackages() {
 }
 
 export function ResortRooms() {
-  const [active, setActive] = useState(0);
-  const prev=()=>setActive((i)=>(i-1+roomConcepts.length)%roomConcepts.length);
-  const next=()=>setActive((i)=>(i+1)%roomConcepts.length);
-  const current=roomConcepts[active];
-  return <section className="kr-rooms" id="rooms" aria-labelledby="kr-rooms-title">
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (selected === null) return undefined;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setSelected(null);
+      if (event.key === 'ArrowRight') setSelected((index) => (index + 1) % roomConcepts.length);
+      if (event.key === 'ArrowLeft') setSelected((index) => (index - 1 + roomConcepts.length) % roomConcepts.length);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [selected]);
+
+  const renderRoom = (room, index, type) => (
+    <figure className={'kr-editorial-room kr-editorial-room-' + type} key={room.src}>
+      <button type="button" className="kr-editorial-room-photo"
+        onClick={() => setSelected(index)} aria-label={'Enlarge '+room.caption+' room visualisation'}>
+        <img src={room.src} alt={room.alt} loading="lazy" decoding="async" />
+        <span className="kr-editorial-room-expand"><Maximize2 size={17} strokeWidth={1.45}/><span>VIEW IMAGE</span></span>
+      </button>
+      <figcaption className="kr-editorial-room-caption">
+        <div><span className="kr-editorial-room-index">{String(index+1).padStart(2,'0')} / 05</span><h3>{room.caption}</h3></div>
+        <p>{room.detail}</p>
+      </figcaption>
+    </figure>
+  );
+
+  return <section className="kr-rooms kr-rooms-premium" id="rooms" aria-labelledby="kr-rooms-title">
     <div className="kr-wrap">
-      <div className="kr-rooms-head">
-        <div><span className="kr-eyebrow"><span/> REST & RETREAT</span><h2 id="kr-rooms-title">A softer place<br/><em>to land.</em></h2></div>
-        <div className="kr-rooms-head-copy"><p>For the guests who come to celebrate, and the moments that deserve a little more time. Explore the room design vision at Kaanan.</p><a href={enquire('rooms, stays and wedding guest accommodation')} target="_blank" rel="noopener noreferrer">Enquire about rooms <ArrowUpRight size={17}/></a></div>
-      </div>
-      <div className="kr-rooms-showcase">
-        <div className="kr-room-main">
-          <img src={current.src} alt={current.alt} key={current.src} loading="lazy"/>
-          <div className="kr-room-main-overlay"><span>ROOM DESIGN CONCEPT <span>{String(active+1).padStart(2,'0')} / 05</span></span><div><h3>{current.caption}</h3><p>{current.detail}</p></div></div>
-          <div className="kr-room-controls"><button type="button" onClick={prev} aria-label="Previous room image"><ArrowLeft size={20}/></button><button type="button" onClick={next} aria-label="Next room image"><ArrowRight size={20}/></button></div>
+      <div className="kr-rooms-premium-head">
+        <div><span className="kr-eyebrow"><span/> THE STAY EXPERIENCE</span>
+          <h2 id="kr-rooms-title">A slower kind<br/>of <em>luxury.</em></h2>
         </div>
-        <div className="kr-room-thumbs" aria-label="Choose a room design image">
-          {roomConcepts.map((room,i)=><button className={'kr-room-thumb '+(active===i?'is-current':'')} type="button" key={room.src} onClick={()=>setActive(i)} aria-label={'View room concept '+(i+1)} aria-pressed={active===i}>
-            <img src={room.src} alt="" loading="lazy"/><span>0{i+1}</span>
-          </button>)}
+        <div className="kr-rooms-premium-intro"><p>For wedding guests, family gatherings and quiet escapes. Discover the calming warmth and thoughtful finishes imagined for a stay at Kaanan.</p>
+          <a href={enquire('rooms, family stays and wedding guest accommodation')} target="_blank" rel="noopener noreferrer">Discuss your stay <ArrowUpRight size={18}/></a>
         </div>
       </div>
-      <div className="kr-room-bottom"><span><BedDouble size={21}/> A glimpse of planned guest accommodation</span><p>These are design visualisations, not photographs of completed or currently available rooms. Room types, amenities and availability must be confirmed before booking.</p></div>
+
+      <div className="kr-rooms-gallery-primary" aria-label="Featured room design visualisations">
+        {renderRoom(roomConcepts[0],0,'lead')}
+        {renderRoom(roomConcepts[1],1,'portrait')}
+      </div>
+      <div className="kr-rooms-gallery-divider"><span>THE ROOM, FROM EVERY ANGLE</span><span className="kr-rooms-gallery-divider-rule"/><span>03 — 05</span></div>
+      <div className="kr-rooms-gallery-secondary" aria-label="Additional room design perspectives">
+        {roomConcepts.slice(2).map((room,i) => renderRoom(room,i+2,i===2?'landscape':'detail'))}
+      </div>
+
+      <div className="kr-rooms-premium-foot">
+        <div className="kr-rooms-note-heading"><BedDouble size={22} strokeWidth={1.35}/><span>ROOMS & GUEST STAYS</span></div>
+        <p>Artist-enhanced architectural design visualisations, not photographs of completed rooms. Room categories, final furnishings, amenities and availability are subject to confirmation with the resort team.</p>
+        <a href={enquire('available room options, dates and room rates')} target="_blank" rel="noopener noreferrer">Enquire for availability <ArrowUpRight size={17}/></a>
+      </div>
     </div>
+
+    {selected !== null && <div className="kr-room-lightbox" role="dialog" aria-modal="true"
+      aria-label={roomConcepts[selected].caption+' - room design visualisation'}
+      onMouseDown={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
+      <button type="button" className="kr-lightbox-close" onClick={() => setSelected(null)} aria-label="Close enlarged room image"><X size={23}/></button>
+      <button type="button" className="kr-lightbox-control kr-lightbox-previous" onClick={() => setSelected((selected-1+roomConcepts.length)%roomConcepts.length)} aria-label="Previous room image"><ArrowLeft size={24}/></button>
+      <figure className="kr-room-lightbox-figure"><img src={roomConcepts[selected].src} alt={roomConcepts[selected].alt}/>
+        <figcaption><span>{String(selected+1).padStart(2,'0')} / 05</span><strong>{roomConcepts[selected].caption}</strong><small>ARTIST-ENHANCED DESIGN VISUALISATION</small></figcaption>
+      </figure>
+      <button type="button" className="kr-lightbox-control kr-lightbox-next" onClick={() => setSelected((selected+1)%roomConcepts.length)} aria-label="Next room image"><ArrowRight size={24}/></button>
+    </div>}
   </section>;
 }

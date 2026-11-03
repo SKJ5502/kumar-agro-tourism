@@ -76,3 +76,62 @@
 .k-nav{gap:clamp(13px,2vw,26px)}
 @media(max-width:760px){.k-brand .k-logo-mark{width:34px;height:51px}}
 @media(max-width:500px){.k-brand .k-logo-mark{width:28px;height:42px}}
+
+
+/* KAANAN: refined, editorial rooms showcase with the approved enhanced renders */
+.kr-rooms-premium{background:#f7f4ed;position:relative;overflow:hidden}
+.kr-rooms-premium .kr-wrap{width:min(1430px,calc(100% - 104px))}
+.kr-rooms-premium-head{display:grid;grid-template-columns:minmax(0,1.17fr) minmax(0,.65fr);align-items:end;gap:6%;margin:0 0 70px}
+.kr-rooms-premium-head h2{font:500 clamp(5.4rem,8.2vw,10rem)/.9 'Cormorant Garamond',Georgia,serif;letter-spacing:-.062em;color:#202f4e;margin:27px 0 0}
+.kr-rooms-premium-head h2 em{font-weight:400;color:#a68b83}
+.kr-rooms-premium-intro{padding-bottom:10px;max-width:470px}
+.kr-rooms-premium-intro p{font:400 14px/1.96 'DM Sans',sans-serif;color:#68717b;max-width:425px;margin:0 0 27px}
+.kr-rooms-premium-intro a,.kr-rooms-premium-foot a{display:inline-flex;align-items:center;gap:14px;text-decoration:none;border-bottom:1px solid #b49a77;padding:0 0 13px;font:700 10px 'DM Sans',sans-serif;letter-spacing:.04em;color:#243d64;transition:gap .2s}
+.kr-rooms-premium-intro a:hover,.kr-rooms-premium-foot a:hover{gap:20px}
+.kr-rooms-gallery-primary{display:grid;grid-template-columns:minmax(0,1.57fr) minmax(0,1fr);align-items:start;gap:22px}
+.kr-editorial-room{margin:0;min-width:0}
+.kr-editorial-room-photo{width:100%;padding:0;border:0;background:#ddd4c6;cursor:zoom-in;position:relative;display:block;overflow:hidden;isolation:isolate}
+.kr-editorial-room-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .85s cubic-bezier(.22,1,.36,1),filter .4s ease}
+.kr-editorial-room-photo:hover img,.kr-editorial-room-photo:focus-visible img{transform:scale(1.035)}
+.kr-editorial-room-photo:focus-visible{outline:3px solid #af9064;outline-offset:4px}
+.kr-editorial-room-lead .kr-editorial-room-photo{aspect-ratio:4/3}
+.kr-editorial-room-portrait .kr-editorial-room-photo{aspect-ratio:3/4}
+.kr-editorial-room-detail .kr-editorial-room-photo{aspect-ratio:3/4}
+.kr-editorial-room-landscape .kr-editorial-room-photo{aspect-ratio:4/3}
+.kr-editorial-room-photo:after{content:'';position:absolute;inset:50% 0 0;background:linear-gradient(0deg,rgba(12,24,38,.38),transparent);z-index:1;pointer-events:none;opacity:.65;transition:opacity .3s}
+.kr-editorial-room-photo:hover:after{opacity:.9}
+.kr-editorial-room-expand{position:absolute;right:22px;bottom:21px;z-index:2;display:flex;align-items:center;gap:9px;color:#fffcf3;font:700 9px 'DM Sans',sans-serif;letter-spacing:.14em;opacity:.92}
+.kr-editorial-room-expand svg{width:30px;height:30px;padding:7px;border:1px solid rgba(255,251,238,.73);border-radius:100%}
+.kr-editorial-room-caption{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:22px 1px 0}
+.kr-editorial-room-index{font:700 9px 'DM Sans',sans-serif;color:#a88c6c;letter-spacing:.16em}
+.kr-editorial-room-caption h3{font:500 clamp(2.35rem,3vw,3.75rem)/1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.04em;color:#1e3456;margin:7px 0 0}
+.kr-editorial-room-caption p{font:400 10px/1.7 'DM Sans',sans-serif;color:#7c8287;margin:0 0 4px;text-align:right;max-width:160px}
+.kr-rooms-gallery-divider{display:flex;align-items:center;gap:23px;margin:77px 0 28px;font:700 10px 'DM Sans',sans-serif;color:#7d7770;letter-spacing:.17em}
+.kr-rooms-gallery-divider-rule{flex:1;height:1px;background:#d8d0c3}
+.kr-rooms-gallery-secondary{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,.95fr) minmax(0,1.2fr);align-items:start;gap:19px}
+.kr-rooms-gallery-secondary .kr-editorial-room-caption{display:block;padding:16px 0 0}
+.kr-rooms-gallery-secondary .kr-editorial-room-caption h3{font-size:clamp(2.2rem,2.8vw,3.2rem)}
+.kr-rooms-gallery-secondary .kr-editorial-room-caption p{text-align:left;max-width:none;margin-top:7px}
+.kr-rooms-premium-foot{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.25fr) auto;align-items:center;gap:44px;margin-top:76px;padding:33px 0 0;border-top:1px solid #d8cec0}
+.kr-rooms-note-heading{display:flex;align-items:center;gap:13px;font:700 10px 'DM Sans',sans-serif;letter-spacing:.12em;color:#2b4162;white-space:nowrap}
+.kr-rooms-note-heading svg{color:#a9906f}
+.kr-rooms-premium-foot p{font:400 11px/1.85 'DM Sans',sans-serif;color:#757b82;margin:0}
+.kr-rooms-premium-foot a{white-space:nowrap;margin:0}
+.kr-room-lightbox{position:fixed;inset:0;z-index:1000;background:rgba(8,14,29,.96);display:flex;align-items:center;justify-content:center;padding:70px 100px;color:#fff8e8;animation:kr-fade-in .25s ease}
+@keyframes kr-fade-in{from{opacity:0}to{opacity:1}}
+.kr-room-lightbox-figure{margin:0;max-width:min(1100px,100%);max-height:100%;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:14px;min-width:0}
+.kr-room-lightbox-figure img{display:block;object-fit:contain;max-width:100%;max-height:calc(100vh - 220px);width:auto;height:auto;box-shadow:0 18px 58px rgba(0,0,0,.3)}
+.kr-room-lightbox-figure figcaption{width:100%;display:flex;align-items:center;justify-content:space-between;gap:22px;font-size:11px}
+.kr-room-lightbox-figure figcaption>span{color:#d6b98b;font:700 10px 'DM Sans',sans-serif;letter-spacing:.15em}
+.kr-room-lightbox-figure figcaption strong{font:500 28px/1 'Cormorant Garamond',Georgia,serif}
+.kr-room-lightbox-figure figcaption small{font:700 9px 'DM Sans',sans-serif;letter-spacing:.11em;color:#b7b5b1}
+.kr-lightbox-close,.kr-lightbox-control{cursor:pointer;border:1px solid rgba(234,218,193,.4);background:rgba(255,255,255,.07);color:#fff6e8;display:grid;place-items:center;transition:background .2s}
+.kr-lightbox-close:hover,.kr-lightbox-control:hover{background:rgba(255,255,255,.19)}
+.kr-lightbox-close:focus-visible,.kr-lightbox-control:focus-visible{outline:2px solid #efd8b4;outline-offset:2px}
+.kr-lightbox-close{position:absolute;right:30px;top:30px;width:48px;height:48px;border-radius:50%}
+.kr-lightbox-control{position:absolute;width:50px;height:50px;border-radius:50%;top:50%;transform:translateY(-50%)}
+.kr-lightbox-previous{left:24px}.kr-lightbox-next{right:24px}
+@media(max-width:1200px){.kr-rooms-premium .kr-wrap{width:calc(100% - 76px)}.kr-editorial-room-caption{display:block}.kr-editorial-room-caption p{text-align:left;margin-top:8px}.kr-rooms-premium-foot{grid-template-columns:1fr 1.25fr;gap:20px}.kr-rooms-premium-foot a{grid-column:2;justify-self:start}}
+@media(max-width:850px){.kr-rooms-premium .kr-wrap{width:calc(100% - 50px)}.kr-rooms-premium-head{grid-template-columns:1fr;gap:22px;margin-bottom:43px}.kr-rooms-premium-head h2{font-size:clamp(5.5rem,11vw,8rem)}.kr-rooms-gallery-primary{gap:12px}.kr-rooms-gallery-secondary{gap:12px}.kr-rooms-gallery-divider{margin-top:55px}.kr-editorial-room-caption h3{font-size:clamp(2.2rem,4vw,3rem)}.kr-rooms-premium-foot{margin-top:56px}}
+@media(max-width:650px){.kr-rooms-premium .kr-wrap{width:calc(100% - 34px)}.kr-rooms-premium-head h2{font-size:clamp(4.7rem,14vw,6.5rem)}.kr-rooms-premium-intro p{font-size:12px}.kr-rooms-gallery-primary{grid-template-columns:1fr;gap:31px}.kr-editorial-room-lead .kr-editorial-room-photo{aspect-ratio:4/3}.kr-editorial-room-portrait .kr-editorial-room-photo{aspect-ratio:4/3}.kr-editorial-room-portrait .kr-editorial-room-photo img{object-position:50% 43%}.kr-rooms-gallery-divider{margin:46px 0 19px;gap:11px;font-size:8px}.kr-rooms-gallery-secondary{grid-template-columns:1fr 1fr;gap:20px 10px}.kr-rooms-gallery-secondary .kr-editorial-room-landscape{grid-column:span 2}.kr-rooms-gallery-secondary .kr-editorial-room-landscape .kr-editorial-room-photo{aspect-ratio:4/3}.kr-rooms-gallery-secondary .kr-editorial-room-caption h3{font-size:2.3rem}.kr-editorial-room-caption h3{font-size:2.85rem}.kr-editorial-room-caption p{font-size:10px}.kr-editorial-room-expand>span{display:none}.kr-rooms-premium-foot{grid-template-columns:1fr;gap:16px;margin-top:47px}.kr-rooms-premium-foot a{grid-column:auto}.kr-room-lightbox{padding:62px 14px 76px}.kr-room-lightbox-figure img{max-height:calc(100dvh - 185px)}.kr-room-lightbox-figure figcaption{display:grid;grid-template-columns:1fr auto;gap:10px}.kr-room-lightbox-figure figcaption small{grid-column:span 2}.kr-lightbox-close{top:12px;right:12px;width:42px;height:42px}.kr-lightbox-control{top:auto;bottom:13px;transform:none;width:42px;height:42px}.kr-lightbox-previous{left:18px}.kr-lightbox-next{right:18px}}
+@media(prefers-reduced-motion:reduce){.kr-editorial-room-photo img{transition:none}.kr-room-lightbox{animation:none}}
