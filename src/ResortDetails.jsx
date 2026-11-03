@@ -172,13 +172,6 @@ export function ResortRooms() {
       </div>
     </div>
 
-t">
-        <div className="kr-rooms-note-heading"><BedDouble size={22} strokeWidth={1.35}/><span>ROOMS & GUEST STAYS</span></div>
-        <p>Artist-enhanced architectural design visualisations, not photographs of completed rooms. Room categories, final furnishings, amenities and availability are subject to confirmation with the resort team.</p>
-        <a href={enquire('available room options, dates and room rates')} target="_blank" rel="noopener noreferrer">Enquire for availability <ArrowUpRight size={17}/></a>
-      </div>
-    </div>
-
     {selected !== null && <div className="kr-room-lightbox" role="dialog" aria-modal="true"
       aria-label={roomConcepts[selected].caption+' - room design visualisation'}
       onMouseDown={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
